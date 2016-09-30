@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace TC.PhotoImporter
 {
+    using static Environment;
+    using static FormattableString;
+
     sealed class Settings
     {
         readonly Properties.Settings _settings;
@@ -24,12 +27,7 @@ namespace TC.PhotoImporter
 
         public string Validate()
         {
-            return string.Join(Environment.NewLine, DetermineErrors());
-        }
-
-        public bool IsValid()
-        {
-            return !DetermineErrors().Any();
+            return string.Join(NewLine, DetermineErrors());
         }
 
         IEnumerable<string> DetermineErrors()
@@ -47,12 +45,20 @@ namespace TC.PhotoImporter
         {
             if (string.IsNullOrWhiteSpace(path))
             {
-                return $"Setting “{settingName}” cannot be empty";
+                return Invariant($"Setting “{settingName}” cannot be empty");
             }
 
-            if (!Directory.Exists(path))
+            try
             {
-                return $"Folder “{path}” ({settingName}) does not exist";
+                Path.GetFullPath(path);
+            }
+            catch (PathTooLongException)
+            {
+                return Invariant($"Setting “{settingName}” contains a path that is too long{NewLine}(“{path}”)");
+            }
+            catch (Exception ex) when (ex is ArgumentException || ex is NotSupportedException)
+            {
+                return Invariant($"Setting “{settingName}” contains an invalid path “{path}”");
             }
 
             return null;

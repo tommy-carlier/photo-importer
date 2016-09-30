@@ -49,7 +49,7 @@ namespace TC.PhotoImporter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1024")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int MaxWidthOrHeight {
             get {
                 return ((int)(this["MaxWidthOrHeight"]));

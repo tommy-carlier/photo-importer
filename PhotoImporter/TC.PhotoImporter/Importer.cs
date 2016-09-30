@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace TC.PhotoImporter
 {
+    using static Environment;
+    using static FormattableString;
+
     sealed class Importer
     {
         readonly Settings _settings;
@@ -57,7 +60,7 @@ namespace TC.PhotoImporter
             }
             catch(SecurityException ex)
             {
-                throw new ImportException($"Access denied to source folder “{_settings.SourceFolderPath}”", ex);
+                throw new ImportException(Invariant($"Access denied to source folder “{_settings.SourceFolderPath}”"), ex);
             }
         }
 
@@ -103,15 +106,15 @@ namespace TC.PhotoImporter
                 }
                 catch(UnauthorizedAccessException ex)
                 {
-                    throw new ImportException($"Access denied to destination folder “{path}”", ex);
+                    throw new ImportException(Invariant($"Access denied to destination folder “{path}”"), ex);
                 }
                 catch(PathTooLongException ex)
                 {
-                    throw new ImportException($"Path of destination folder “{path}” is too long", ex);
+                    throw new ImportException(Invariant($"Path of destination folder “{path}” is too long"), ex);
                 }
                 catch(IOException ex)
                 {
-                    throw new ImportException($"Error while trying to create folder “{path}”:{Environment.NewLine}{ex.Message}", ex);
+                    throw new ImportException(Invariant($"Error while trying to create folder “{path}”:{NewLine}{ex.Message}"), ex);
                 }
             }
 
@@ -126,13 +129,18 @@ namespace TC.PhotoImporter
             }
             catch(OutOfMemoryException ex)
             {
-                throw new ImportException($"Cannot read image from “{filePath}”", ex);
+                throw new ImportException(Invariant($"Cannot read image from “{filePath}”"), ex);
             }
         }
 
         private Size CalculateDestinationSize(Size sourceSize)
         {
             int maxWidthOrHeight = _settings.MaxWidthOrHeight;
+            if(maxWidthOrHeight <= 0)
+            {
+                return sourceSize;
+            }
+
             if(sourceSize.Width >= sourceSize.Height) // landscape orientation
             {
                 if(maxWidthOrHeight < sourceSize.Width)
@@ -160,28 +168,37 @@ namespace TC.PhotoImporter
         private static Image CreateDestinationImage(Image sourceImage, Size destinationSize)
         {
             var destinationImage = new Bitmap(destinationSize.Width, destinationSize.Height);
-            destinationImage.SetResolution(sourceImage.HorizontalResolution, sourceImage.VerticalResolution);
-            using(var graphics = Graphics.FromImage(destinationImage))
+            try
             {
-                graphics.CompositingMode = CompositingMode.SourceCopy;
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                destinationImage.SetResolution(sourceImage.HorizontalResolution, sourceImage.VerticalResolution);
 
-                using(var attributes = new ImageAttributes())
+                using (var graphics = Graphics.FromImage(destinationImage))
                 {
-                    attributes.SetWrapMode(WrapMode.TileFlipXY);
-                    graphics.DrawImage(
-                        image: sourceImage, 
-                        destRect: new Rectangle(Point.Empty, destinationSize),
-                        srcX: 0, srcY: 0, srcWidth: sourceImage.Width,srcHeight: sourceImage.Height, 
-                        srcUnit: GraphicsUnit.Pixel, 
-                        imageAttr: attributes);
-                }
-            }
+                    graphics.CompositingMode = CompositingMode.SourceCopy;
+                    graphics.CompositingQuality = CompositingQuality.HighQuality;
+                    graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    graphics.SmoothingMode = SmoothingMode.HighQuality;
+                    graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
-            return destinationImage;
+                    using (var attributes = new ImageAttributes())
+                    {
+                        attributes.SetWrapMode(WrapMode.TileFlipXY);
+                        graphics.DrawImage(
+                            image: sourceImage,
+                            destRect: new Rectangle(Point.Empty, destinationSize),
+                            srcX: 0, srcY: 0, srcWidth: sourceImage.Width, srcHeight: sourceImage.Height,
+                            srcUnit: GraphicsUnit.Pixel,
+                            imageAttr: attributes);
+                    }
+                }
+
+                return destinationImage;
+            }
+            catch
+            {
+                destinationImage.Dispose();
+                throw;
+            }
         }
 
         private static void CopyExifData(Image sourceImage, Image destinationImage)
@@ -206,7 +223,7 @@ namespace TC.PhotoImporter
             }
             catch(ExternalException ex)
             {
-                throw new ImportException($"Could not save JPEG file “{filePath}”:{Environment.NewLine}{ex.Message}", ex);
+                throw new ImportException(Invariant($"Could not save JPEG file “{filePath}”:{NewLine}{ex.Message}"), ex);
             }
         }
 
@@ -218,11 +235,11 @@ namespace TC.PhotoImporter
             }
             catch(UnauthorizedAccessException ex)
             {
-                throw new ImportException($"Could not set creation time of “{destinationFilePath}”: access denied", ex);
+                throw new ImportException(Invariant($"Could not set creation time of “{destinationFilePath}”: access denied"), ex);
             }
             catch(IOException ex)
             {
-                throw new ImportException($"Could not set creation time of “{destinationFilePath}”:{Environment.NewLine}{ex.Message}", ex);
+                throw new ImportException(Invariant($"Could not set creation time of “{destinationFilePath}”:{NewLine}{ex.Message}"), ex);
             }
         }
 
@@ -234,11 +251,11 @@ namespace TC.PhotoImporter
             }
             catch(SecurityException ex)
             {
-                throw new ImportException($"Could not delete source file “{file.FullName}”: access denied", ex);
+                throw new ImportException(Invariant($"Could not delete source file “{file.FullName}”: access denied"), ex);
             }
             catch(IOException ex)
             {
-                throw new ImportException($"Could not delete source file “{file.FullName}”:{Environment.NewLine}{ex.Message}", ex);
+                throw new ImportException(Invariant($"Could not delete source file “{file.FullName}”:{NewLine}{ex.Message}"), ex);
             }
         }
     }
