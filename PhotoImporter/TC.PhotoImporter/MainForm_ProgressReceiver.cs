@@ -20,8 +20,8 @@ namespace TC.PhotoImporter
             internal ProgressReceiver(MainForm form)
             {
                 _form = form;
-                _statusLabel = form.statusLabel;
-                _progress = form.progress;
+                _statusLabel = form._statusLabel;
+                _progress = form._progress;
             }
 
             #region IImportProgressReceiver implementation

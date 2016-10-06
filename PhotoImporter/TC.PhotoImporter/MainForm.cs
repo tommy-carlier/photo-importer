@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
@@ -9,39 +11,57 @@ namespace TC.PhotoImporter
 
     public partial class MainForm : Form
     {
+        private readonly Settings _settings = Settings.Instance;
+        private readonly ProgressReceiver _progressReceiver;
         private Importer _importer;
 
         public MainForm()
         {
             InitializeComponent();
+            _progressReceiver = new ProgressReceiver(this);
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            var settings = Settings.Instance;
-            string error = settings.Validate();
+            string error = _settings.Validate();
             if (string.IsNullOrEmpty(error))
             {
-                var progressReceiver = new ProgressReceiver(this);
-                if (Directory.Exists(settings.SourceFolderPath))
-                {
-                    _importer = new Importer(settings, progressReceiver);
-                    _importer.Start();
-                }
-                else
-                {
-                    progressReceiver.ReportFailure(Invariant($"Source folder “{settings.SourceFolderPath}” does not exist"));
-                }
+                StartImporting();
             }
             else
             {
-                statusLabel.Text = error;
+                _statusLabel.Text = error;
             }
 
-            SetFolderLinkContent(sourceIcon, sourceLink, settings.SourceFolderPath);
-            SetFolderLinkContent(destinationIcon, destinationLink, settings.DestinationFolderPath);
+            SetFolderLinkContent(_sourceIcon, _sourceLink, _settings.SourceFolderPath);
+            SetFolderLinkContent(_destinationIcon, _destinationLink, _settings.DestinationFolderPath);
+        }
+
+        private void StartImporting()
+        {
+            var errors = new List<string>(2);
+            if (!Directory.Exists(_settings.SourceFolderPath))
+            {
+                errors.Add(Invariant($"Source folder “{_settings.SourceFolderPath}” does not exist."));
+            }
+            if (!Directory.Exists(_settings.DestinationFolderPath))
+            {
+                errors.Add(Invariant($"Destination folder “{_settings.DestinationFolderPath}” does not exist."));
+            }
+
+            if (errors.Count == 0)
+            {
+                _timerToCheckFoldersExist.Stop();
+                _importer = new Importer(_settings, _progressReceiver);
+                _importer.Start();
+            }
+            else
+            {
+                _progressReceiver.ReportFailure(string.Join(Environment.NewLine, errors));
+                _timerToCheckFoldersExist.Start();
+            }
         }
 
         private static void SetFolderLinkContent(PictureBox icon, LinkLabel link, string folderPath)
@@ -61,12 +81,38 @@ namespace TC.PhotoImporter
 
         private void OnFolderLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start((sender as LinkLabel).Text);
+            StartProcess((sender as LinkLabel).Text);
         }
 
         private void OnWebsiteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://www.tcx.be/");
+            StartProcess("http://www.tcx.be/");
+        }
+
+        private void OnTimerToCheckFoldersExistTick(object sender, EventArgs e)
+        {
+            StartImporting();
+        }
+
+        private void StartProcess(string fileName)
+        {
+            try
+            {
+                Process.Start(fileName);
+            }
+            catch(Win32Exception ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+            catch(FileNotFoundException ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+        }
+
+        private void ShowErrorDialog(string message)
+        {
+            MessageBox.Show(this, message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

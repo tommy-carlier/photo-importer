@@ -28,20 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TableLayoutPanel layout;
             System.Windows.Forms.LinkLabel websiteLink;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.statusLabel = new System.Windows.Forms.Label();
-            this.progress = new System.Windows.Forms.ProgressBar();
-            this.sourceIcon = new System.Windows.Forms.PictureBox();
-            this.sourceLink = new System.Windows.Forms.LinkLabel();
-            this.destinationIcon = new System.Windows.Forms.PictureBox();
-            this.destinationLink = new System.Windows.Forms.LinkLabel();
+            this._statusLabel = new System.Windows.Forms.Label();
+            this._progress = new System.Windows.Forms.ProgressBar();
+            this._sourceIcon = new System.Windows.Forms.PictureBox();
+            this._sourceLink = new System.Windows.Forms.LinkLabel();
+            this._destinationIcon = new System.Windows.Forms.PictureBox();
+            this._destinationLink = new System.Windows.Forms.LinkLabel();
+            this._timerToCheckFoldersExist = new System.Windows.Forms.Timer(this.components);
             layout = new System.Windows.Forms.TableLayoutPanel();
             websiteLink = new System.Windows.Forms.LinkLabel();
             layout.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sourceIcon)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.destinationIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._sourceIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._destinationIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // layout
@@ -51,12 +53,12 @@
             layout.ColumnCount = 2;
             layout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             layout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            layout.Controls.Add(this.statusLabel, 0, 0);
-            layout.Controls.Add(this.progress, 0, 1);
-            layout.Controls.Add(this.sourceIcon, 0, 2);
-            layout.Controls.Add(this.sourceLink, 1, 2);
-            layout.Controls.Add(this.destinationIcon, 0, 3);
-            layout.Controls.Add(this.destinationLink, 1, 3);
+            layout.Controls.Add(this._statusLabel, 0, 0);
+            layout.Controls.Add(this._progress, 0, 1);
+            layout.Controls.Add(this._sourceIcon, 0, 2);
+            layout.Controls.Add(this._sourceLink, 1, 2);
+            layout.Controls.Add(this._destinationIcon, 0, 3);
+            layout.Controls.Add(this._destinationLink, 1, 3);
             layout.Controls.Add(websiteLink, 1, 4);
             layout.Dock = System.Windows.Forms.DockStyle.Fill;
             layout.Location = new System.Drawing.Point(0, 0);
@@ -74,86 +76,86 @@
             // 
             // statusLabel
             // 
-            this.statusLabel.AutoSize = true;
-            layout.SetColumnSpan(this.statusLabel, 2);
-            this.statusLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.statusLabel.Location = new System.Drawing.Point(9, 9);
-            this.statusLabel.Margin = new System.Windows.Forms.Padding(6);
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(427, 17);
-            this.statusLabel.TabIndex = 0;
-            this.statusLabel.Text = "(Status)";
+            this._statusLabel.AutoSize = true;
+            layout.SetColumnSpan(this._statusLabel, 2);
+            this._statusLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._statusLabel.Location = new System.Drawing.Point(9, 9);
+            this._statusLabel.Margin = new System.Windows.Forms.Padding(6);
+            this._statusLabel.Name = "statusLabel";
+            this._statusLabel.Size = new System.Drawing.Size(427, 17);
+            this._statusLabel.TabIndex = 0;
+            this._statusLabel.Text = "(Status)";
             // 
             // progress
             // 
-            layout.SetColumnSpan(this.progress, 2);
-            this.progress.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progress.Location = new System.Drawing.Point(9, 38);
-            this.progress.Margin = new System.Windows.Forms.Padding(6);
-            this.progress.MaximumSize = new System.Drawing.Size(0, 20);
-            this.progress.Name = "progress";
-            this.progress.Size = new System.Drawing.Size(427, 20);
-            this.progress.Step = 1;
-            this.progress.TabIndex = 1;
-            this.progress.Visible = false;
+            layout.SetColumnSpan(this._progress, 2);
+            this._progress.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._progress.Location = new System.Drawing.Point(9, 38);
+            this._progress.Margin = new System.Windows.Forms.Padding(6);
+            this._progress.MaximumSize = new System.Drawing.Size(0, 20);
+            this._progress.Name = "progress";
+            this._progress.Size = new System.Drawing.Size(427, 20);
+            this._progress.Step = 1;
+            this._progress.TabIndex = 1;
+            this._progress.Visible = false;
             // 
             // sourceIcon
             // 
-            this.sourceIcon.Image = global::TC.PhotoImporter.Properties.Resources.Camera_32xLG;
-            this.sourceIcon.Location = new System.Drawing.Point(6, 64);
-            this.sourceIcon.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.sourceIcon.Name = "sourceIcon";
-            this.sourceIcon.Size = new System.Drawing.Size(32, 32);
-            this.sourceIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.sourceIcon.TabIndex = 5;
-            this.sourceIcon.TabStop = false;
+            this._sourceIcon.Image = global::TC.PhotoImporter.Properties.Resources.Camera_32xLG;
+            this._sourceIcon.Location = new System.Drawing.Point(6, 64);
+            this._sourceIcon.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this._sourceIcon.Name = "sourceIcon";
+            this._sourceIcon.Size = new System.Drawing.Size(32, 32);
+            this._sourceIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this._sourceIcon.TabIndex = 5;
+            this._sourceIcon.TabStop = false;
             // 
             // sourceLink
             // 
-            this.sourceLink.AutoEllipsis = true;
-            this.sourceLink.AutoSize = true;
-            this.sourceLink.DisabledLinkColor = System.Drawing.SystemColors.GrayText;
-            this.sourceLink.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sourceLink.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sourceLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.sourceLink.Location = new System.Drawing.Point(45, 68);
-            this.sourceLink.Margin = new System.Windows.Forms.Padding(4);
-            this.sourceLink.Name = "sourceLink";
-            this.sourceLink.Size = new System.Drawing.Size(393, 24);
-            this.sourceLink.TabIndex = 2;
-            this.sourceLink.TabStop = true;
-            this.sourceLink.Text = "(source)";
-            this.sourceLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.sourceLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnFolderLinkClicked);
+            this._sourceLink.AutoEllipsis = true;
+            this._sourceLink.AutoSize = true;
+            this._sourceLink.DisabledLinkColor = System.Drawing.SystemColors.GrayText;
+            this._sourceLink.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._sourceLink.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._sourceLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this._sourceLink.Location = new System.Drawing.Point(45, 68);
+            this._sourceLink.Margin = new System.Windows.Forms.Padding(4);
+            this._sourceLink.Name = "sourceLink";
+            this._sourceLink.Size = new System.Drawing.Size(393, 24);
+            this._sourceLink.TabIndex = 2;
+            this._sourceLink.TabStop = true;
+            this._sourceLink.Text = "(source)";
+            this._sourceLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this._sourceLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnFolderLinkClicked);
             // 
             // destinationIcon
             // 
-            this.destinationIcon.Image = global::TC.PhotoImporter.Properties.Resources.Folder_32x;
-            this.destinationIcon.Location = new System.Drawing.Point(6, 96);
-            this.destinationIcon.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.destinationIcon.Name = "destinationIcon";
-            this.destinationIcon.Size = new System.Drawing.Size(32, 32);
-            this.destinationIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.destinationIcon.TabIndex = 6;
-            this.destinationIcon.TabStop = false;
+            this._destinationIcon.Image = global::TC.PhotoImporter.Properties.Resources.Folder_32x;
+            this._destinationIcon.Location = new System.Drawing.Point(6, 96);
+            this._destinationIcon.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this._destinationIcon.Name = "destinationIcon";
+            this._destinationIcon.Size = new System.Drawing.Size(32, 32);
+            this._destinationIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this._destinationIcon.TabIndex = 6;
+            this._destinationIcon.TabStop = false;
             // 
             // destinationLink
             // 
-            this.destinationLink.AutoEllipsis = true;
-            this.destinationLink.AutoSize = true;
-            this.destinationLink.DisabledLinkColor = System.Drawing.SystemColors.GrayText;
-            this.destinationLink.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.destinationLink.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.destinationLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.destinationLink.Location = new System.Drawing.Point(45, 100);
-            this.destinationLink.Margin = new System.Windows.Forms.Padding(4);
-            this.destinationLink.Name = "destinationLink";
-            this.destinationLink.Size = new System.Drawing.Size(393, 24);
-            this.destinationLink.TabIndex = 3;
-            this.destinationLink.TabStop = true;
-            this.destinationLink.Text = "(destination)";
-            this.destinationLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.destinationLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnFolderLinkClicked);
+            this._destinationLink.AutoEllipsis = true;
+            this._destinationLink.AutoSize = true;
+            this._destinationLink.DisabledLinkColor = System.Drawing.SystemColors.GrayText;
+            this._destinationLink.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._destinationLink.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._destinationLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this._destinationLink.Location = new System.Drawing.Point(45, 100);
+            this._destinationLink.Margin = new System.Windows.Forms.Padding(4);
+            this._destinationLink.Name = "destinationLink";
+            this._destinationLink.Size = new System.Drawing.Size(393, 24);
+            this._destinationLink.TabIndex = 3;
+            this._destinationLink.TabStop = true;
+            this._destinationLink.Text = "(destination)";
+            this._destinationLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this._destinationLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnFolderLinkClicked);
             // 
             // websiteLink
             // 
@@ -175,6 +177,11 @@
             websiteLink.VisitedLinkColor = System.Drawing.SystemColors.GrayText;
             websiteLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnWebsiteLinkClicked);
             // 
+            // timerToCheckFoldersExist
+            // 
+            this._timerToCheckFoldersExist.Interval = 3000;
+            this._timerToCheckFoldersExist.Tick += new System.EventHandler(this.OnTimerToCheckFoldersExistTick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -193,8 +200,8 @@
             this.Text = "Photo Importer";
             layout.ResumeLayout(false);
             layout.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sourceIcon)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.destinationIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._sourceIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._destinationIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -202,12 +209,13 @@
 
         #endregion
 
-        private System.Windows.Forms.Label statusLabel;
-        private System.Windows.Forms.ProgressBar progress;
-        private System.Windows.Forms.LinkLabel destinationLink;
-        private System.Windows.Forms.LinkLabel sourceLink;
-        private System.Windows.Forms.PictureBox sourceIcon;
-        private System.Windows.Forms.PictureBox destinationIcon;
+        private System.Windows.Forms.Label _statusLabel;
+        private System.Windows.Forms.ProgressBar _progress;
+        private System.Windows.Forms.PictureBox _sourceIcon;
+        private System.Windows.Forms.LinkLabel _sourceLink;
+        private System.Windows.Forms.PictureBox _destinationIcon;
+        private System.Windows.Forms.LinkLabel _destinationLink;
+        private System.Windows.Forms.Timer _timerToCheckFoldersExist;
     }
 }
 

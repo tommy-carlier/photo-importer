@@ -60,7 +60,7 @@ namespace TC.PhotoImporter
             }
             catch(SecurityException ex)
             {
-                throw new ImportException(Invariant($"Access denied to source folder “{_settings.SourceFolderPath}”"), ex);
+                throw new ImportException(Invariant($"Access denied to source folder “{_settings.SourceFolderPath}”."), ex);
             }
         }
 
@@ -106,11 +106,11 @@ namespace TC.PhotoImporter
                 }
                 catch(UnauthorizedAccessException ex)
                 {
-                    throw new ImportException(Invariant($"Access denied to destination folder “{path}”"), ex);
+                    throw new ImportException(Invariant($"Access denied to destination folder “{path}”."), ex);
                 }
                 catch(PathTooLongException ex)
                 {
-                    throw new ImportException(Invariant($"Path of destination folder “{path}” is too long"), ex);
+                    throw new ImportException(Invariant($"Path of destination folder “{path}” is too long."), ex);
                 }
                 catch(IOException ex)
                 {
@@ -129,7 +129,7 @@ namespace TC.PhotoImporter
             }
             catch(OutOfMemoryException ex)
             {
-                throw new ImportException(Invariant($"Cannot read image from “{filePath}”"), ex);
+                throw new ImportException(Invariant($"Cannot read image from “{filePath}”."), ex);
             }
         }
 
@@ -223,7 +223,7 @@ namespace TC.PhotoImporter
             }
             catch(ExternalException ex)
             {
-                throw new ImportException(Invariant($"Could not save JPEG file “{filePath}”:{NewLine}{ex.Message}"), ex);
+                throw new ImportException(Invariant($"Could not save JPEG file “{filePath}”:{NewLine}{ex.Message}."), ex);
             }
         }
 
@@ -235,7 +235,7 @@ namespace TC.PhotoImporter
             }
             catch(UnauthorizedAccessException ex)
             {
-                throw new ImportException(Invariant($"Could not set creation time of “{destinationFilePath}”: access denied"), ex);
+                throw new ImportException(Invariant($"Could not set creation time of “{destinationFilePath}”: access denied."), ex);
             }
             catch(IOException ex)
             {
@@ -251,7 +251,7 @@ namespace TC.PhotoImporter
             }
             catch(SecurityException ex)
             {
-                throw new ImportException(Invariant($"Could not delete source file “{file.FullName}”: access denied"), ex);
+                throw new ImportException(Invariant($"Could not delete source file “{file.FullName}”: access denied."), ex);
             }
             catch(IOException ex)
             {

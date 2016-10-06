@@ -45,7 +45,7 @@ namespace TC.PhotoImporter
         {
             if (string.IsNullOrWhiteSpace(path))
             {
-                return Invariant($"Setting “{settingName}” cannot be empty");
+                return Invariant($"Setting “{settingName}” cannot be empty.");
             }
 
             try
@@ -54,11 +54,11 @@ namespace TC.PhotoImporter
             }
             catch (PathTooLongException)
             {
-                return Invariant($"Setting “{settingName}” contains a path that is too long{NewLine}(“{path}”)");
+                return Invariant($"Setting “{settingName}” contains a path that is too long{NewLine}(“{path}”).");
             }
             catch (Exception ex) when (ex is ArgumentException || ex is NotSupportedException)
             {
-                return Invariant($"Setting “{settingName}” contains an invalid path “{path}”");
+                return Invariant($"Setting “{settingName}” contains an invalid path “{path}”.");
             }
 
             return null;
