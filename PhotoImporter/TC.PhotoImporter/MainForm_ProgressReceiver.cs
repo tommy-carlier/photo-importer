@@ -1,11 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
 
 namespace TC.PhotoImporter
 {
-    using static FormattableString;
-
     partial class MainForm
     {
         private sealed class ProgressReceiver : IImportProgressReceiver
@@ -69,7 +68,7 @@ namespace TC.PhotoImporter
 
             private void ReportStartedUI()
             {
-                _statusLabel.Text = "Starting…";
+                _statusLabel.Text = Properties.Resources.Starting;
                 _progress.Visible = true;
                 _progress.Style = ProgressBarStyle.Marquee;
             }
@@ -83,7 +82,12 @@ namespace TC.PhotoImporter
 
             private void ReportFileStartedUI()
             {
-                _statusLabel.Text = Invariant($"Importing {_currentFileName} ({_finishedFileCount + 1}/{_totalFileCount})…");
+                _statusLabel.Text = string.Format(
+                    CultureInfo.InvariantCulture,
+                    Properties.Resources.Importing,
+                    _currentFileName,
+                    _finishedFileCount + 1,
+                    _totalFileCount);
             }
 
             private void ReportFileFinishedUI()
@@ -100,9 +104,12 @@ namespace TC.PhotoImporter
             {
                 switch (photoCount)
                 {
-                    case 0: return "No photos were imported.";
-                    case 1: return "Finished importing 1 photo.";
-                    default: return Invariant($"Finished importing {photoCount} photos.");
+                    case 0: return Properties.Resources.NoPhotosImported;
+                    case 1: return Properties.Resources.OnePhotoImported;
+                    default: return string.Format(
+                        CultureInfo.InvariantCulture,
+                        Properties.Resources.MultiplePhotosImported,
+                        photoCount);
                 }
             }
 

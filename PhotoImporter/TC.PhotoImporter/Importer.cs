@@ -11,9 +11,6 @@ using System.Threading.Tasks;
 
 namespace TC.PhotoImporter
 {
-    using static Environment;
-    using static FormattableString;
-
     sealed class Importer
     {
         readonly Settings _settings;
@@ -60,7 +57,10 @@ namespace TC.PhotoImporter
             }
             catch(SecurityException ex)
             {
-                throw new ImportException(Invariant($"Access denied to source folder “{_settings.SourceFolderPath}”."), ex);
+                throw new ImportException(string.Format(
+                    CultureInfo.InvariantCulture,
+                    Properties.Resources.AccessDeniedToSourceFolder,
+                    _settings.SourceFolderPath));
             }
         }
 
@@ -106,15 +106,31 @@ namespace TC.PhotoImporter
                 }
                 catch(UnauthorizedAccessException ex)
                 {
-                    throw new ImportException(Invariant($"Access denied to destination folder “{path}”."), ex);
+                    throw new ImportException(
+                        string.Format(
+                            CultureInfo.InvariantCulture,
+                            Properties.Resources.AccessDeniedToDestinationFolder,
+                            path),
+                        ex);
                 }
                 catch(PathTooLongException ex)
                 {
-                    throw new ImportException(Invariant($"Path of destination folder “{path}” is too long."), ex);
+                    throw new ImportException(
+                        string.Format(
+                            CultureInfo.InvariantCulture,
+                            Properties.Resources.PathOfDestinationFolderTooLong,
+                            path),
+                        ex);
                 }
                 catch(IOException ex)
                 {
-                    throw new ImportException(Invariant($"Error while trying to create folder “{path}”:{NewLine}{ex.Message}"), ex);
+                    throw new ImportException(
+                        string.Format(
+                            CultureInfo.InvariantCulture,
+                            Properties.Resources.ErrorWhileCreatingFolder,
+                            path,
+                            ex.Message),
+                        ex);
                 }
             }
 
@@ -129,7 +145,12 @@ namespace TC.PhotoImporter
             }
             catch(OutOfMemoryException ex)
             {
-                throw new ImportException(Invariant($"Cannot read image from “{filePath}”."), ex);
+                throw new ImportException(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        Properties.Resources.CannotReadImageFromPath,
+                        filePath),
+                    ex);
             }
         }
 
@@ -223,7 +244,13 @@ namespace TC.PhotoImporter
             }
             catch(ExternalException ex)
             {
-                throw new ImportException(Invariant($"Could not save JPEG file “{filePath}”:{NewLine}{ex.Message}."), ex);
+                throw new ImportException(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        Properties.Resources.CannotSaveJpegFile,
+                        filePath,
+                        ex.Message),
+                    ex);
             }
         }
 
@@ -235,11 +262,22 @@ namespace TC.PhotoImporter
             }
             catch(UnauthorizedAccessException ex)
             {
-                throw new ImportException(Invariant($"Could not set creation time of “{destinationFilePath}”: access denied."), ex);
+                throw new ImportException(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        Properties.Resources.CannotSetCreationTimeAccessDenied,
+                        destinationFilePath),
+                    ex);
             }
             catch(IOException ex)
             {
-                throw new ImportException(Invariant($"Could not set creation time of “{destinationFilePath}”:{NewLine}{ex.Message}"), ex);
+                throw new ImportException(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        Properties.Resources.CannotSetCreationTimeUnknownError,
+                        destinationFilePath,
+                        ex.Message),
+                    ex);
             }
         }
 
@@ -251,11 +289,22 @@ namespace TC.PhotoImporter
             }
             catch(SecurityException ex)
             {
-                throw new ImportException(Invariant($"Could not delete source file “{file.FullName}”: access denied."), ex);
+                throw new ImportException(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        Properties.Resources.CannotDeleteSourceFileAccessDenied,
+                        file.FullName),
+                    ex);
             }
             catch(IOException ex)
             {
-                throw new ImportException(Invariant($"Could not delete source file “{file.FullName}”:{NewLine}{ex.Message}"), ex);
+                throw new ImportException(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        Properties.Resources.CannotDeleteSourceFileUnknownError,
+                        file.FullName,
+                        ex.Message),
+                    ex);
             }
         }
     }

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
 namespace TC.PhotoImporter
 {
-    using static Environment;
-    using static FormattableString;
-
     sealed class Settings
     {
         readonly Properties.Settings _settings;
@@ -27,7 +25,7 @@ namespace TC.PhotoImporter
 
         public string Validate()
         {
-            return string.Join(NewLine, DetermineErrors());
+            return string.Join(Environment.NewLine, DetermineErrors());
         }
 
         IEnumerable<string> DetermineErrors()
@@ -41,11 +39,14 @@ namespace TC.PhotoImporter
             yield return GetFolderPathError(_settings.DestinationFolderPath, nameof(_settings.DestinationFolderPath));
         }
 
-        static string GetFolderPathError(string path, string settingName)
+        private static string GetFolderPathError(string path, string settingName)
         {
             if (string.IsNullOrWhiteSpace(path))
             {
-                return Invariant($"Setting “{settingName}” cannot be empty.");
+                return string.Format(
+                    CultureInfo.InvariantCulture, 
+                    Properties.Resources.SettingCannotBeEmpty, 
+                    settingName);
             }
 
             try
@@ -54,11 +55,19 @@ namespace TC.PhotoImporter
             }
             catch (PathTooLongException)
             {
-                return Invariant($"Setting “{settingName}” contains a path that is too long{NewLine}(“{path}”).");
+                return string.Format(
+                    CultureInfo.InvariantCulture,
+                    Properties.Resources.SettingContainsPathTooLong, 
+                    settingName, 
+                    path);
             }
             catch (Exception ex) when (ex is ArgumentException || ex is NotSupportedException)
             {
-                return Invariant($"Setting “{settingName}” contains an invalid path “{path}”.");
+                return string.Format(
+                    CultureInfo.InvariantCulture,
+                    Properties.Resources.SettingContainsInvalidPath,
+                    settingName,
+                    path);
             }
 
             return null;

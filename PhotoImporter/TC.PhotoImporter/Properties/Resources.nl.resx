@@ -118,106 +118,99 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccessDeniedToDestinationFolder" xml:space="preserve">
-    <value>Access denied to destination folder “{0}”.</value>
+    <value>Toegang geweigerd tot doelmap “{0}”.</value>
     <comment>{0} = folder path</comment>
   </data>
   <data name="AccessDeniedToSourceFolder" xml:space="preserve">
-    <value>Access denied to source folder “{0}”.</value>
+    <value>Toegang geweigerd tot bronmap “{0}”.</value>
     <comment>{0} = folder path</comment>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Camera_32xLG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Camera_32xLG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="CannotDeleteSourceFileAccessDenied" xml:space="preserve">
-    <value>Cannot delete source file “{0}”: access denied.</value>
+    <value>Kan bronbestand “{0}” niet verwijderen: toegang geweigerd.</value>
     <comment>{0} = file path</comment>
   </data>
   <data name="CannotDeleteSourceFileUnknownError" xml:space="preserve">
-    <value>Cannot delete source file “{0}”:
+    <value>Kan bronbestand “{0}” niet verwijderen:
 {1}</value>
     <comment>{0} = file path
 {1} = error message</comment>
   </data>
   <data name="CannotReadImageFromPath" xml:space="preserve">
-    <value>Cannot read image from “{0}”.</value>
+    <value>Kan afbeelding niet lezen uit “{0}”.</value>
     <comment>{0} = file path</comment>
   </data>
   <data name="CannotSaveJpegFile" xml:space="preserve">
-    <value>Cannot save JPEG file “{0}”:
+    <value>Kan JPEG-bestand “{0}” niet opslaan:
 {1}</value>
     <comment>{0} = file path
 {1} = error message</comment>
   </data>
   <data name="CannotSetCreationTimeAccessDenied" xml:space="preserve">
-    <value>Cannot set creation time of “{0}”: access denied.</value>
+    <value>Kan aanmaakdatum van “{0}” niet aanpassen: toegang geweigerd.</value>
     <comment>{0} = file path</comment>
   </data>
   <data name="CannotSetCreationTimeUnknownError" xml:space="preserve">
-    <value>Cannot set creation time of “{0}”:
+    <value>Kan aanmaakdatum van “{0}” niet aanpassen:
 {1}</value>
     <comment>{0} = file path
 {1} = error message</comment>
   </data>
   <data name="DestinationFolderDoesNotExist" xml:space="preserve">
-    <value>Destination folder “{0}” does not exist.</value>
+    <value>Doelmap “{0}” bestaat niet.</value>
     <comment>{0} = folder path</comment>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Error</value>
+    <value>Fout</value>
   </data>
   <data name="ErrorWhileCreatingFolder" xml:space="preserve">
-    <value>Error while trying to create folder “{0}”:
+    <value>Fout tijdens aanmaken map “{0}”:
 {1}</value>
     <comment>{0} = folder path
 {1} = error message</comment>
   </data>
-  <data name="Folder_32x" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Folder_32x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Importing" xml:space="preserve">
-    <value>Importing {0} ({1}/{2})…</value>
+    <value>Bezig met {0} te importeren ({1}/{2})…</value>
     <comment>{0} = file name
 {1} = current file number
 {2} = total file count</comment>
   </data>
   <data name="ImportPhotos" xml:space="preserve">
-    <value>Import photos</value>
+    <value>Foto’s importeren</value>
   </data>
   <data name="MultiplePhotosImported" xml:space="preserve">
-    <value>Finished importing {0} photos.</value>
+    <value>Er werden {0} foto’s geïmporteerd.</value>
     <comment>{0} = photo count</comment>
   </data>
   <data name="NoPhotosImported" xml:space="preserve">
-    <value>No photos were imported.</value>
+    <value>Er werden geen foto’s geïmporteerd.</value>
   </data>
   <data name="OnePhotoImported" xml:space="preserve">
-    <value>Finished importing 1 photo.</value>
+    <value>Er werd 1 foto geïmporteerd.</value>
   </data>
   <data name="PathOfDestinationFolderTooLong" xml:space="preserve">
-    <value>Path of destination folder “{0}” is too long.</value>
+    <value>Pad van doelmap “{0}” is te lang.</value>
     <comment>{0} = folder path</comment>
   </data>
   <data name="SettingCannotBeEmpty" xml:space="preserve">
-    <value>Setting “{0}” cannot be empty.</value>
+    <value>Instelling “{0}” mag niet leeg zijn.</value>
     <comment>{0} = setting name</comment>
   </data>
   <data name="SettingContainsInvalidPath" xml:space="preserve">
-    <value>Setting “{0}” contains an invalid path “{1}”.</value>
+    <value>Instelling “{0}” bevat een ongeldig pad “{1}”.</value>
     <comment>{0} = setting name
 {1} = folder path</comment>
   </data>
   <data name="SettingContainsPathTooLong" xml:space="preserve">
-    <value>Setting “{0}” contains a path that is too long.
+    <value>Instelling “{0}” bevat een pad dat te lang is.
 (“{1}”)</value>
     <comment>{0} = setting name
 {1} = folder path</comment>
   </data>
   <data name="SourceFolderDoesNotExist" xml:space="preserve">
-    <value>Source folder “{0}” does not exist.</value>
+    <value>Bronmap “{0}” bestaat niet.</value>
     <comment>{0} = folder path</comment>
   </data>
   <data name="Starting" xml:space="preserve">
-    <value>Starting…</value>
+    <value>Bezig met starten…</value>
   </data>
 </root>

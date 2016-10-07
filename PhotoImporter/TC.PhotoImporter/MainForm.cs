@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 
 namespace TC.PhotoImporter
 {
-    using static FormattableString;
-
     public partial class MainForm : Form
     {
         private readonly Settings _settings = Settings.Instance;
@@ -18,6 +17,7 @@ namespace TC.PhotoImporter
         public MainForm()
         {
             InitializeComponent();
+            Text = Properties.Resources.ImportPhotos;
             _progressReceiver = new ProgressReceiver(this);
         }
 
@@ -44,11 +44,17 @@ namespace TC.PhotoImporter
             var errors = new List<string>(2);
             if (!Directory.Exists(_settings.SourceFolderPath))
             {
-                errors.Add(Invariant($"Source folder “{_settings.SourceFolderPath}” does not exist."));
+                errors.Add(string.Format(
+                    CultureInfo.InvariantCulture,
+                    Properties.Resources.SourceFolderDoesNotExist,
+                    _settings.SourceFolderPath));
             }
             if (!Directory.Exists(_settings.DestinationFolderPath))
             {
-                errors.Add(Invariant($"Destination folder “{_settings.DestinationFolderPath}” does not exist."));
+                errors.Add(string.Format(
+                    CultureInfo.InvariantCulture,
+                    Properties.Resources.DestinationFolderDoesNotExist,
+                    _settings.DestinationFolderPath));
             }
 
             if (errors.Count == 0)
@@ -112,7 +118,7 @@ namespace TC.PhotoImporter
 
         private void ShowErrorDialog(string message)
         {
-            MessageBox.Show(this, message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(this, message, Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

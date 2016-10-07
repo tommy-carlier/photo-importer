@@ -61,6 +61,24 @@ namespace TC.PhotoImporter.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access denied to destination folder “{0}”..
+        /// </summary>
+        internal static string AccessDeniedToDestinationFolder {
+            get {
+                return ResourceManager.GetString("AccessDeniedToDestinationFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access denied to source folder “{0}”..
+        /// </summary>
+        internal static string AccessDeniedToSourceFolder {
+            get {
+                return ResourceManager.GetString("AccessDeniedToSourceFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Camera_32xLG {
@@ -71,12 +89,197 @@ namespace TC.PhotoImporter.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot delete source file “{0}”: access denied..
+        /// </summary>
+        internal static string CannotDeleteSourceFileAccessDenied {
+            get {
+                return ResourceManager.GetString("CannotDeleteSourceFileAccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot delete source file “{0}”:
+        ///{1}.
+        /// </summary>
+        internal static string CannotDeleteSourceFileUnknownError {
+            get {
+                return ResourceManager.GetString("CannotDeleteSourceFileUnknownError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot read image from “{0}”..
+        /// </summary>
+        internal static string CannotReadImageFromPath {
+            get {
+                return ResourceManager.GetString("CannotReadImageFromPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot save JPEG file “{0}”:
+        ///{1}.
+        /// </summary>
+        internal static string CannotSaveJpegFile {
+            get {
+                return ResourceManager.GetString("CannotSaveJpegFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot set creation time of “{0}”: access denied..
+        /// </summary>
+        internal static string CannotSetCreationTimeAccessDenied {
+            get {
+                return ResourceManager.GetString("CannotSetCreationTimeAccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot set creation time of “{0}”:
+        ///{1}.
+        /// </summary>
+        internal static string CannotSetCreationTimeUnknownError {
+            get {
+                return ResourceManager.GetString("CannotSetCreationTimeUnknownError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination folder “{0}” does not exist..
+        /// </summary>
+        internal static string DestinationFolderDoesNotExist {
+            get {
+                return ResourceManager.GetString("DestinationFolderDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while trying to create folder “{0}”:
+        ///{1}.
+        /// </summary>
+        internal static string ErrorWhileCreatingFolder {
+            get {
+                return ResourceManager.GetString("ErrorWhileCreatingFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Folder_32x {
             get {
                 object obj = ResourceManager.GetObject("Folder_32x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importing {0} ({1}/{2})….
+        /// </summary>
+        internal static string Importing {
+            get {
+                return ResourceManager.GetString("Importing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import photos.
+        /// </summary>
+        internal static string ImportPhotos {
+            get {
+                return ResourceManager.GetString("ImportPhotos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finished importing {0} photos..
+        /// </summary>
+        internal static string MultiplePhotosImported {
+            get {
+                return ResourceManager.GetString("MultiplePhotosImported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No photos were imported..
+        /// </summary>
+        internal static string NoPhotosImported {
+            get {
+                return ResourceManager.GetString("NoPhotosImported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finished importing 1 photo..
+        /// </summary>
+        internal static string OnePhotoImported {
+            get {
+                return ResourceManager.GetString("OnePhotoImported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path of destination folder “{0}” is too long..
+        /// </summary>
+        internal static string PathOfDestinationFolderTooLong {
+            get {
+                return ResourceManager.GetString("PathOfDestinationFolderTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting “{0}” cannot be empty..
+        /// </summary>
+        internal static string SettingCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("SettingCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting “{0}” contains an invalid path “{1}”..
+        /// </summary>
+        internal static string SettingContainsInvalidPath {
+            get {
+                return ResourceManager.GetString("SettingContainsInvalidPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting “{0}” contains a path that is too long.
+        ///(“{1}”).
+        /// </summary>
+        internal static string SettingContainsPathTooLong {
+            get {
+                return ResourceManager.GetString("SettingContainsPathTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source folder “{0}” does not exist..
+        /// </summary>
+        internal static string SourceFolderDoesNotExist {
+            get {
+                return ResourceManager.GetString("SourceFolderDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting….
+        /// </summary>
+        internal static string Starting {
+            get {
+                return ResourceManager.GetString("Starting", resourceCulture);
             }
         }
     }
