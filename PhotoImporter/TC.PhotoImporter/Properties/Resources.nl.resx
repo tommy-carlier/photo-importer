@@ -213,4 +213,8 @@
   <data name="Starting" xml:space="preserve">
     <value>Bezig met starten…</value>
   </data>
+  <data name="VersionTitleSuffix" xml:space="preserve">
+    <value> (versie {0})</value>
+    <comment>{0} = version number</comment>
+  </data>
 </root>

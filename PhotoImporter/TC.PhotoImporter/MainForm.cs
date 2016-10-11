@@ -18,9 +18,25 @@ namespace TC.PhotoImporter
         public MainForm()
         {
             InitializeComponent();
-            Text = Properties.Resources.ImportPhotos;
+            Text = Properties.Resources.ImportPhotos + GetVersionTitleSuffix();
             _progressReceiver = new ProgressReceiver(this);
             _locationTracker = new FormLocationTracker(this);
+        }
+
+        private static string GetVersionTitleSuffix()
+        {
+            try
+            {
+                var version = new Version(Application.ProductVersion);
+
+                return string.Format(
+                    CultureInfo.InvariantCulture,
+                    Properties.Resources.VersionTitleSuffix,
+                    version.ToString(fieldCount: 2));
+            }
+            catch (ArgumentException) { return ""; }
+            catch (FormatException) { return ""; }
+            catch (OverflowException) { return ""; }
         }
 
         protected override void OnLoad(EventArgs e)

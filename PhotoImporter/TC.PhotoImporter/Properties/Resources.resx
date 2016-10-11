@@ -220,4 +220,8 @@
   <data name="Starting" xml:space="preserve">
     <value>Starting…</value>
   </data>
+  <data name="VersionTitleSuffix" xml:space="preserve">
+    <value> (version {0})</value>
+    <comment>{0} = version number</comment>
+  </data>
 </root>

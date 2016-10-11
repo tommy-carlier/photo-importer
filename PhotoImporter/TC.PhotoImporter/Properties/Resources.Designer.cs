@@ -282,5 +282,14 @@ namespace TC.PhotoImporter.Properties {
                 return ResourceManager.GetString("Starting", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  (version {0}).
+        /// </summary>
+        internal static string VersionTitleSuffix {
+            get {
+                return ResourceManager.GetString("VersionTitleSuffix", resourceCulture);
+            }
+        }
     }
 }
