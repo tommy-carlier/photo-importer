@@ -57,10 +57,12 @@ namespace TC.PhotoImporter
             }
             catch(SecurityException ex)
             {
-                throw new ImportException(string.Format(
-                    CultureInfo.InvariantCulture,
-                    Properties.Resources.AccessDeniedToSourceFolder,
-                    _settings.SourceFolderPath));
+                throw new ImportException(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        Properties.Resources.AccessDeniedToSourceFolder,
+                        _settings.SourceFolderPath),
+                    ex);
             }
         }
 

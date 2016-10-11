@@ -12,6 +12,7 @@ namespace TC.PhotoImporter
     {
         private readonly Settings _settings = Settings.Instance;
         private readonly ProgressReceiver _progressReceiver;
+        private readonly FormLocationTracker _locationTracker;
         private Importer _importer;
 
         public MainForm()
@@ -19,6 +20,7 @@ namespace TC.PhotoImporter
             InitializeComponent();
             Text = Properties.Resources.ImportPhotos;
             _progressReceiver = new ProgressReceiver(this);
+            _locationTracker = new FormLocationTracker(this);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -37,6 +39,12 @@ namespace TC.PhotoImporter
 
             SetFolderLinkContent(_sourceIcon, _sourceLink, _settings.SourceFolderPath);
             SetFolderLinkContent(_destinationIcon, _destinationLink, _settings.DestinationFolderPath);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            _locationTracker.Dispose();
         }
 
         private void StartImporting()
