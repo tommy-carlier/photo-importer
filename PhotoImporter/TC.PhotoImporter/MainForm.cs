@@ -10,9 +10,10 @@ namespace TC.PhotoImporter
 {
     public partial class MainForm : Form
     {
-        private readonly Settings _settings = Settings.Instance;
         private readonly ProgressReceiver _progressReceiver;
         private readonly FormLocationTracker _locationTracker;
+
+        private Settings _settings;
         private Importer _importer;
 
         public MainForm()
@@ -42,6 +43,8 @@ namespace TC.PhotoImporter
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
+            _settings = Settings.ReadFromFile("TC.PhotoImporter.ini");
 
             string error = _settings.Validate();
             if (string.IsNullOrEmpty(error))

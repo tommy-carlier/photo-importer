@@ -8,20 +8,91 @@ namespace TC.PhotoImporter
 {
     sealed class Settings
     {
-        readonly Properties.Settings _settings;
+        private readonly string _readError, _sourceFolderPath, _destinationFolderPath;
+        private readonly int _maxWidthOrHeight;
+        private readonly long _quality;
+        private readonly bool _deleteSourceFiles;
 
-        private Settings(Properties.Settings settings)
+        private Settings(
+            string readError,
+            string sourceFolderPath,
+            string destinationFolderPath,
+            int maxWidthOrHeight,
+            long quality,
+            bool deleteSourceFiles)
         {
-            _settings = settings;
+            _readError = readError;
+            _sourceFolderPath = sourceFolderPath;
+            _destinationFolderPath = destinationFolderPath;
+            _maxWidthOrHeight = maxWidthOrHeight;
+            _quality = quality;
+            _deleteSourceFiles = deleteSourceFiles;
         }
 
-        public static readonly Settings Instance = new Settings(Properties.Settings.Default);
+        public string SourceFolderPath { get { return _sourceFolderPath; } }
+        public string DestinationFolderPath { get { return _destinationFolderPath; } }
+        public int MaxWidthOrHeight { get { return _maxWidthOrHeight; } }
+        public long Quality { get { return _quality; } }
+        public bool DeleteSourceFiles { get { return _deleteSourceFiles; } }
 
-        public string SourceFolderPath { get { return _settings.SourceFolderPath; } }
-        public string DestinationFolderPath { get { return _settings.DestinationFolderPath; } }
-        public int MaxWidthOrHeight { get { return _settings.MaxWidthOrHeight; } }
-        public long Quality { get { return _settings.Quality; } }
-        public bool DeleteSourceFiles { get { return _settings.DeleteSourceFiles; } }
+        public static Settings ReadFromFile(string filePath)
+        {
+            string readError = "", sourceFolderPath = "", destinationFolderPath = "";
+            int maxWidthOrHeight = 0;
+            long quality = 80;
+            bool deleteSourceFiles = false;
+
+            try
+            {
+                foreach (var setting in new SettingsFileReader(filePath).ReadSettings())
+                {
+                    switch (setting.Key)
+                    {
+                        case "SourceFolderPath":
+                            sourceFolderPath = setting.Value;
+                            break;
+
+                        case "DestinationFolderPath":
+                            destinationFolderPath = setting.Value;
+                            break;
+
+                        case "MaxWidthOrHeight":
+                            maxWidthOrHeight = ParseInt32(setting.Value);
+                            break;
+
+                        case "Quality":
+                            quality = ParseInt32(setting.Value);
+                            break;
+
+                        case "DeleteSourceFiles":
+                            deleteSourceFiles = ParseBoolean(setting.Value);
+                            break;
+                    }
+                }
+            }
+            catch (ImportException ex)
+            {
+                readError = ex.Message;
+            }
+
+            return new Settings(readError, sourceFolderPath, destinationFolderPath, maxWidthOrHeight, quality, deleteSourceFiles);
+        }
+
+        private static int ParseInt32(string value)
+        {
+            int result;
+            if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result))
+            {
+                return result;
+            }
+            return 0;
+        }
+
+        private static bool ParseBoolean(string value)
+        {
+            bool result;
+            return bool.TryParse(value, out result) && result;
+        }
 
         public string Validate()
         {
@@ -35,8 +106,15 @@ namespace TC.PhotoImporter
 
         IEnumerable<string> DetermineErrorsWithNulls()
         {
-            yield return GetFolderPathError(_settings.SourceFolderPath, nameof(_settings.SourceFolderPath));
-            yield return GetFolderPathError(_settings.DestinationFolderPath, nameof(_settings.DestinationFolderPath));
+            if (!string.IsNullOrEmpty(_readError))
+            {
+                yield return _readError;
+            }
+            else
+            {
+                yield return GetFolderPathError(_sourceFolderPath, "SourceFolderPath");
+                yield return GetFolderPathError(_destinationFolderPath, "DestinationFolderPath");
+            }
         }
 
         private static string GetFolderPathError(string path, string settingName)
@@ -44,8 +122,8 @@ namespace TC.PhotoImporter
             if (string.IsNullOrWhiteSpace(path))
             {
                 return string.Format(
-                    CultureInfo.InvariantCulture, 
-                    Properties.Resources.SettingCannotBeEmpty, 
+                    CultureInfo.InvariantCulture,
+                    Properties.Resources.SettingCannotBeEmpty,
                     settingName);
             }
 
@@ -57,8 +135,8 @@ namespace TC.PhotoImporter
             {
                 return string.Format(
                     CultureInfo.InvariantCulture,
-                    Properties.Resources.SettingContainsPathTooLong, 
-                    settingName, 
+                    Properties.Resources.SettingContainsPathTooLong,
+                    settingName,
                     path);
             }
             catch (Exception ex) when (ex is ArgumentException || ex is NotSupportedException)

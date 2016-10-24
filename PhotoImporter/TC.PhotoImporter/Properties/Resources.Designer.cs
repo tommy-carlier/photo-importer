@@ -174,6 +174,16 @@ namespace TC.PhotoImporter.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while reading settings file “{0}”:
+        ///{1}.
+        /// </summary>
+        internal static string ErrorWhileReadingSettingsFile {
+            get {
+                return ResourceManager.GetString("ErrorWhileReadingSettingsFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Folder_32x {
@@ -229,7 +239,8 @@ namespace TC.PhotoImporter.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Path of destination folder “{0}” is too long..
+        ///   Looks up a localized string similar to The path of the destination folder is too long:
+        ///{0}.
         /// </summary>
         internal static string PathOfDestinationFolderTooLong {
             get {
@@ -256,12 +267,40 @@ namespace TC.PhotoImporter.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Setting “{0}” contains a path that is too long.
+        ///   Looks up a localized string similar to Setting “{0}” contains a path that is too long:
         ///(“{1}”).
         /// </summary>
         internal static string SettingContainsPathTooLong {
             get {
                 return ResourceManager.GetString("SettingContainsPathTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot read settings file “{0}”: access denied..
+        /// </summary>
+        internal static string SettingsFileAccessDenied {
+            get {
+                return ResourceManager.GetString("SettingsFileAccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot find settings-file “{0}”..
+        /// </summary>
+        internal static string SettingsFileNotFound {
+            get {
+                return ResourceManager.GetString("SettingsFileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path of the settings file is too long:
+        ///{0}.
+        /// </summary>
+        internal static string SettingsFilePathTooLong {
+            get {
+                return ResourceManager.GetString("SettingsFilePathTooLong", resourceCulture);
             }
         }
         

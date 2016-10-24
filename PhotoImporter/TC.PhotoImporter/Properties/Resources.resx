@@ -195,7 +195,8 @@
     <value>Finished importing 1 photo.</value>
   </data>
   <data name="PathOfDestinationFolderTooLong" xml:space="preserve">
-    <value>Path of destination folder “{0}” is too long.</value>
+    <value>The path of the destination folder is too long:
+{0}</value>
     <comment>{0} = folder path</comment>
   </data>
   <data name="SettingCannotBeEmpty" xml:space="preserve">
@@ -208,7 +209,7 @@
 {1} = folder path</comment>
   </data>
   <data name="SettingContainsPathTooLong" xml:space="preserve">
-    <value>Setting “{0}” contains a path that is too long.
+    <value>Setting “{0}” contains a path that is too long:
 (“{1}”)</value>
     <comment>{0} = setting name
 {1} = folder path</comment>
@@ -223,5 +224,24 @@
   <data name="VersionTitleSuffix" xml:space="preserve">
     <value> (version {0})</value>
     <comment>{0} = version number</comment>
+  </data>
+  <data name="SettingsFileNotFound" xml:space="preserve">
+    <value>Cannot find settings-file “{0}”.</value>
+    <comment>{0} = file path</comment>
+  </data>
+  <data name="ErrorWhileReadingSettingsFile" xml:space="preserve">
+    <value>Error while reading settings file “{0}”:
+{1}</value>
+    <comment>{0} = file path
+{1} = error message</comment>
+  </data>
+  <data name="SettingsFileAccessDenied" xml:space="preserve">
+    <value>Cannot read settings file “{0}”: access denied.</value>
+    <comment>{0} = file path</comment>
+  </data>
+  <data name="SettingsFilePathTooLong" xml:space="preserve">
+    <value>The path of the settings file is too long:
+{0}</value>
+    <comment>{0} = file path</comment>
   </data>
 </root>

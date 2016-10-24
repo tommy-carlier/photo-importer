@@ -163,7 +163,7 @@
     <value>Fout</value>
   </data>
   <data name="ErrorWhileCreatingFolder" xml:space="preserve">
-    <value>Fout tijdens aanmaken map “{0}”:
+    <value>Fout bij het aanmaken van map “{0}”:
 {1}</value>
     <comment>{0} = folder path
 {1} = error message</comment>
@@ -188,7 +188,8 @@
     <value>Er werd 1 foto geïmporteerd.</value>
   </data>
   <data name="PathOfDestinationFolderTooLong" xml:space="preserve">
-    <value>Pad van doelmap “{0}” is te lang.</value>
+    <value>Het pad van de doelmap is te lang:
+{0}</value>
     <comment>{0} = folder path</comment>
   </data>
   <data name="SettingCannotBeEmpty" xml:space="preserve">
@@ -201,8 +202,8 @@
 {1} = folder path</comment>
   </data>
   <data name="SettingContainsPathTooLong" xml:space="preserve">
-    <value>Instelling “{0}” bevat een pad dat te lang is.
-(“{1}”)</value>
+    <value>Instelling “{0}” bevat een pad dat te lang is:
+{1}</value>
     <comment>{0} = setting name
 {1} = folder path</comment>
   </data>
@@ -216,5 +217,24 @@
   <data name="VersionTitleSuffix" xml:space="preserve">
     <value> (versie {0})</value>
     <comment>{0} = version number</comment>
+  </data>
+  <data name="SettingsFileNotFound" xml:space="preserve">
+    <value>Kan instellingenbestand “{0}” niet vinden.</value>
+    <comment>{0} = file path</comment>
+  </data>
+  <data name="ErrorWhileReadingSettingsFile" xml:space="preserve">
+    <value>Fout bij het lezen van instellingenbestand “{0}”:
+{1}</value>
+    <comment>{0} = file path
+{1} = error message</comment>
+  </data>
+  <data name="SettingsFileAccessDenied" xml:space="preserve">
+    <value>Kan instellingenbestand “{0}” niet lezen: toegang geweigerd.</value>
+    <comment>{0} = file path</comment>
+  </data>
+  <data name="SettingsFilePathTooLong" xml:space="preserve">
+    <value>Het pad van het instellingenbestand is te lang:
+{0}</value>
+    <comment>{0} = file path</comment>
   </data>
 </root>
