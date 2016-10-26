@@ -62,7 +62,7 @@
             layout.Controls.Add(websiteLink, 1, 4);
             layout.Dock = System.Windows.Forms.DockStyle.Fill;
             layout.Location = new System.Drawing.Point(0, 0);
-            layout.MinimumSize = new System.Drawing.Size(300, 0);
+            layout.MinimumSize = new System.Drawing.Size(400, 0);
             layout.Name = "layout";
             layout.Padding = new System.Windows.Forms.Padding(3);
             layout.RowCount = 5;
@@ -74,43 +74,43 @@
             layout.Size = new System.Drawing.Size(445, 167);
             layout.TabIndex = 0;
             // 
-            // statusLabel
+            // _statusLabel
             // 
             this._statusLabel.AutoSize = true;
             layout.SetColumnSpan(this._statusLabel, 2);
             this._statusLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this._statusLabel.Location = new System.Drawing.Point(9, 9);
             this._statusLabel.Margin = new System.Windows.Forms.Padding(6);
-            this._statusLabel.Name = "statusLabel";
+            this._statusLabel.Name = "_statusLabel";
             this._statusLabel.Size = new System.Drawing.Size(427, 17);
             this._statusLabel.TabIndex = 0;
             this._statusLabel.Text = "(Status)";
             // 
-            // progress
+            // _progress
             // 
             layout.SetColumnSpan(this._progress, 2);
             this._progress.Dock = System.Windows.Forms.DockStyle.Fill;
             this._progress.Location = new System.Drawing.Point(9, 38);
             this._progress.Margin = new System.Windows.Forms.Padding(6);
             this._progress.MaximumSize = new System.Drawing.Size(0, 20);
-            this._progress.Name = "progress";
+            this._progress.Name = "_progress";
             this._progress.Size = new System.Drawing.Size(427, 20);
             this._progress.Step = 1;
             this._progress.TabIndex = 1;
             this._progress.Visible = false;
             // 
-            // sourceIcon
+            // _sourceIcon
             // 
             this._sourceIcon.Image = global::TC.PhotoImporter.Properties.Resources.Camera_32xLG;
             this._sourceIcon.Location = new System.Drawing.Point(6, 64);
             this._sourceIcon.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this._sourceIcon.Name = "sourceIcon";
+            this._sourceIcon.Name = "_sourceIcon";
             this._sourceIcon.Size = new System.Drawing.Size(32, 32);
             this._sourceIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this._sourceIcon.TabIndex = 5;
             this._sourceIcon.TabStop = false;
             // 
-            // sourceLink
+            // _sourceLink
             // 
             this._sourceLink.AutoEllipsis = true;
             this._sourceLink.AutoSize = true;
@@ -120,7 +120,7 @@
             this._sourceLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this._sourceLink.Location = new System.Drawing.Point(45, 68);
             this._sourceLink.Margin = new System.Windows.Forms.Padding(4);
-            this._sourceLink.Name = "sourceLink";
+            this._sourceLink.Name = "_sourceLink";
             this._sourceLink.Size = new System.Drawing.Size(393, 24);
             this._sourceLink.TabIndex = 2;
             this._sourceLink.TabStop = true;
@@ -128,18 +128,18 @@
             this._sourceLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this._sourceLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnFolderLinkClicked);
             // 
-            // destinationIcon
+            // _destinationIcon
             // 
             this._destinationIcon.Image = global::TC.PhotoImporter.Properties.Resources.Folder_32x;
             this._destinationIcon.Location = new System.Drawing.Point(6, 96);
             this._destinationIcon.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this._destinationIcon.Name = "destinationIcon";
+            this._destinationIcon.Name = "_destinationIcon";
             this._destinationIcon.Size = new System.Drawing.Size(32, 32);
             this._destinationIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this._destinationIcon.TabIndex = 6;
             this._destinationIcon.TabStop = false;
             // 
-            // destinationLink
+            // _destinationLink
             // 
             this._destinationLink.AutoEllipsis = true;
             this._destinationLink.AutoSize = true;
@@ -149,7 +149,7 @@
             this._destinationLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this._destinationLink.Location = new System.Drawing.Point(45, 100);
             this._destinationLink.Margin = new System.Windows.Forms.Padding(4);
-            this._destinationLink.Name = "destinationLink";
+            this._destinationLink.Name = "_destinationLink";
             this._destinationLink.Size = new System.Drawing.Size(393, 24);
             this._destinationLink.TabIndex = 3;
             this._destinationLink.TabStop = true;
@@ -177,7 +177,7 @@
             websiteLink.VisitedLinkColor = System.Drawing.SystemColors.GrayText;
             websiteLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnWebsiteLinkClicked);
             // 
-            // timerToCheckFoldersExist
+            // _timerToCheckFoldersExist
             // 
             this._timerToCheckFoldersExist.Interval = 3000;
             this._timerToCheckFoldersExist.Tick += new System.EventHandler(this.OnTimerToCheckFoldersExistTick);

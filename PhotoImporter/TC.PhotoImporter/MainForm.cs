@@ -10,7 +10,7 @@ namespace TC.PhotoImporter
 {
     public partial class MainForm : Form
     {
-        private readonly ProgressReceiver _progressReceiver;
+        private readonly IImportProgressReceiver _progressReceiver;
         private readonly FormLocationTracker _locationTracker;
 
         private Settings _settings;
@@ -29,11 +29,12 @@ namespace TC.PhotoImporter
             try
             {
                 var version = new Version(Application.ProductVersion);
+                int fieldCount = version.Build > 0 ? 3 : 2;
 
                 return string.Format(
                     CultureInfo.InvariantCulture,
                     Properties.Resources.VersionTitleSuffix,
-                    version.ToString(fieldCount: 2));
+                    version.ToString(fieldCount));
             }
             catch (ArgumentException) { return ""; }
             catch (FormatException) { return ""; }
