@@ -66,6 +66,7 @@
     <Compile Include="IImportProgressReceiver.cs" />
     <Compile Include="Importer.cs" />
     <Compile Include="ImportException.cs" />
+    <Compile Include="Localization.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

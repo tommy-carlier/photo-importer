@@ -4,6 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
+using static TC.PhotoImporter.Localization;
+
 namespace TC.PhotoImporter
 {
     sealed class Settings
@@ -121,10 +123,7 @@ namespace TC.PhotoImporter
         {
             if (string.IsNullOrWhiteSpace(path))
             {
-                return string.Format(
-                    CultureInfo.InvariantCulture,
-                    Properties.Resources.SettingCannotBeEmpty,
-                    settingName);
+                return Format(Properties.Resources.SettingCannotBeEmpty, settingName);
             }
 
             try
@@ -133,19 +132,11 @@ namespace TC.PhotoImporter
             }
             catch (PathTooLongException)
             {
-                return string.Format(
-                    CultureInfo.InvariantCulture,
-                    Properties.Resources.SettingContainsPathTooLong,
-                    settingName,
-                    path);
+                return Format(Properties.Resources.SettingContainsPathTooLong, settingName, path);
             }
             catch (Exception ex) when (ex is ArgumentException || ex is NotSupportedException)
             {
-                return string.Format(
-                    CultureInfo.InvariantCulture,
-                    Properties.Resources.SettingContainsInvalidPath,
-                    settingName,
-                    path);
+                return Format(Properties.Resources.SettingContainsInvalidPath, settingName, path);
             }
 
             return null;

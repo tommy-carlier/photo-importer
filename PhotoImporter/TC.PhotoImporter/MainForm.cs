@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+
+using static TC.PhotoImporter.Localization;
 
 namespace TC.PhotoImporter
 {
@@ -29,12 +30,9 @@ namespace TC.PhotoImporter
             try
             {
                 var version = new Version(Application.ProductVersion);
-                int fieldCount = version.Build > 0 ? 3 : 2;
-
-                return string.Format(
-                    CultureInfo.InvariantCulture,
+                return Format(
                     Properties.Resources.VersionTitleSuffix,
-                    version.ToString(fieldCount));
+                    version.ToString(fieldCount: version.Build == 0 ? 2 : 3));
             }
             catch (ArgumentException) { return ""; }
             catch (FormatException) { return ""; }
@@ -72,15 +70,13 @@ namespace TC.PhotoImporter
             var errors = new List<string>(2);
             if (!Directory.Exists(_settings.SourceFolderPath))
             {
-                errors.Add(string.Format(
-                    CultureInfo.InvariantCulture,
+                errors.Add(Format(
                     Properties.Resources.SourceFolderDoesNotExist,
                     _settings.SourceFolderPath));
             }
             if (!Directory.Exists(_settings.DestinationFolderPath))
             {
-                errors.Add(string.Format(
-                    CultureInfo.InvariantCulture,
+                errors.Add(Format(
                     Properties.Resources.DestinationFolderDoesNotExist,
                     _settings.DestinationFolderPath));
             }

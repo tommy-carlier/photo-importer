@@ -9,6 +9,8 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Threading.Tasks;
 
+using static TC.PhotoImporter.Localization;
+
 namespace TC.PhotoImporter
 {
     sealed class Importer
@@ -57,12 +59,7 @@ namespace TC.PhotoImporter
             }
             catch(SecurityException ex)
             {
-                throw new ImportException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        Properties.Resources.AccessDeniedToSourceFolder,
-                        _settings.SourceFolderPath),
-                    ex);
+                throw CreateImportException(ex, Properties.Resources.AccessDeniedToSourceFolder, _settings.SourceFolderPath);
             }
         }
 
@@ -108,31 +105,15 @@ namespace TC.PhotoImporter
                 }
                 catch(UnauthorizedAccessException ex)
                 {
-                    throw new ImportException(
-                        string.Format(
-                            CultureInfo.InvariantCulture,
-                            Properties.Resources.AccessDeniedToDestinationFolder,
-                            path),
-                        ex);
+                    throw CreateImportException(ex, Properties.Resources.AccessDeniedToDestinationFolder, path);
                 }
                 catch(PathTooLongException ex)
                 {
-                    throw new ImportException(
-                        string.Format(
-                            CultureInfo.InvariantCulture,
-                            Properties.Resources.PathOfDestinationFolderTooLong,
-                            path),
-                        ex);
+                    throw CreateImportException(ex, Properties.Resources.PathOfDestinationFolderTooLong, path);
                 }
                 catch(IOException ex)
                 {
-                    throw new ImportException(
-                        string.Format(
-                            CultureInfo.InvariantCulture,
-                            Properties.Resources.ErrorWhileCreatingFolder,
-                            path,
-                            ex.Message),
-                        ex);
+                    throw CreateImportException(ex, Properties.Resources.ErrorWhileCreatingFolder, path, ex.Message);
                 }
             }
 
@@ -147,12 +128,7 @@ namespace TC.PhotoImporter
             }
             catch(OutOfMemoryException ex)
             {
-                throw new ImportException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        Properties.Resources.CannotReadImageFromPath,
-                        filePath),
-                    ex);
+                throw CreateImportException(ex, Properties.Resources.CannotReadImageFromPath, filePath);
             }
         }
 
@@ -246,13 +222,7 @@ namespace TC.PhotoImporter
             }
             catch(ExternalException ex)
             {
-                throw new ImportException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        Properties.Resources.CannotSaveJpegFile,
-                        filePath,
-                        ex.Message),
-                    ex);
+                throw CreateImportException(ex, Properties.Resources.CannotSaveJpegFile, filePath, ex.Message);
             }
         }
 
@@ -264,22 +234,11 @@ namespace TC.PhotoImporter
             }
             catch(UnauthorizedAccessException ex)
             {
-                throw new ImportException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        Properties.Resources.CannotSetCreationTimeAccessDenied,
-                        destinationFilePath),
-                    ex);
+                throw CreateImportException(ex, Properties.Resources.CannotSetCreationTimeAccessDenied, destinationFilePath);
             }
             catch(IOException ex)
             {
-                throw new ImportException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        Properties.Resources.CannotSetCreationTimeUnknownError,
-                        destinationFilePath,
-                        ex.Message),
-                    ex);
+                throw CreateImportException(ex, Properties.Resources.CannotSetCreationTimeUnknownError, destinationFilePath, ex.Message);
             }
         }
 
@@ -291,22 +250,11 @@ namespace TC.PhotoImporter
             }
             catch(SecurityException ex)
             {
-                throw new ImportException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        Properties.Resources.CannotDeleteSourceFileAccessDenied,
-                        file.FullName),
-                    ex);
+                throw CreateImportException(ex, Properties.Resources.CannotDeleteSourceFileAccessDenied, file.FullName);
             }
             catch(IOException ex)
             {
-                throw new ImportException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        Properties.Resources.CannotDeleteSourceFileUnknownError,
-                        file.FullName,
-                        ex.Message),
-                    ex);
+                throw CreateImportException(ex, Properties.Resources.CannotDeleteSourceFileUnknownError, file.FullName);
             }
         }
     }

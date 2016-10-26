@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Globalization;
 using System.Windows.Forms;
+
+using static TC.PhotoImporter.Localization;
 
 namespace TC.PhotoImporter
 {
@@ -123,8 +124,7 @@ namespace TC.PhotoImporter
 
             private void ReportFileStartedUI(string fileName)
             {
-                _statusLabel.Text = string.Format(
-                    CultureInfo.InvariantCulture,
+                _statusLabel.Text = Format(
                     Properties.Resources.Importing,
                     fileName,
                     FinishedFileCount + 1,
@@ -147,10 +147,7 @@ namespace TC.PhotoImporter
                 {
                     case 0: return Properties.Resources.NoPhotosImported;
                     case 1: return Properties.Resources.OnePhotoImported;
-                    default: return string.Format(
-                        CultureInfo.InvariantCulture,
-                        Properties.Resources.MultiplePhotosImported,
-                        photoCount);
+                    default: return Format(Properties.Resources.MultiplePhotosImported, photoCount);
                 }
             }
 

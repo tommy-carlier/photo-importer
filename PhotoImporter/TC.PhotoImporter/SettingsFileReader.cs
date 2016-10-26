@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Security;
+
+using static TC.PhotoImporter.Localization;
 
 namespace TC.PhotoImporter
 {
@@ -31,11 +32,7 @@ namespace TC.PhotoImporter
         {
             if (!File.Exists(_filePath))
             {
-                throw new ImportException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        Properties.Resources.SettingsFileNotFound,
-                        _filePath));
+                throw CreateImportException(null, Properties.Resources.SettingsFileNotFound, _filePath);
             }
 
             try
@@ -44,30 +41,15 @@ namespace TC.PhotoImporter
             }
             catch (PathTooLongException ex)
             {
-                throw new ImportException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        Properties.Resources.SettingsFilePathTooLong,
-                        _filePath),
-                    ex);
+                throw CreateImportException(ex, Properties.Resources.SettingsFilePathTooLong, _filePath);
             }
             catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
             {
-                throw new ImportException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        Properties.Resources.SettingsFileAccessDenied,
-                        _filePath),
-                    ex);
+                throw CreateImportException(ex, Properties.Resources.SettingsFileAccessDenied, _filePath);
             }
             catch (IOException ex)
             {
-                throw new ImportException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        Properties.Resources.ErrorWhileReadingSettingsFile,
-                        _filePath),
-                    ex);
+                throw CreateImportException(ex, Properties.Resources.ErrorWhileReadingSettingsFile, _filePath);
             }
         }
 
