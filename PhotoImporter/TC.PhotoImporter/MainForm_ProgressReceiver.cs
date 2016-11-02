@@ -11,13 +11,13 @@ namespace TC.PhotoImporter
         {
             private readonly MainForm _form;
             private readonly Label _statusLabel;
-            private readonly ProgressBar _progress;
+            private readonly FileProgressTracker _progress;
 
             internal ProgressReceiver(MainForm form)
             {
                 _form = form;
                 _statusLabel = form._statusLabel;
-                _progress = form._progress;
+                _progress = new FileProgressTracker(form._progress);
             }
 
             #region IImportProgressReceiver implementation
@@ -54,51 +54,6 @@ namespace TC.PhotoImporter
 
             #endregion IImportProgressReceiver implementation
 
-            #region TotalFileCount, FinishedFileCount
-
-            private int TotalFileCount
-            {
-                get { return _progress.Maximum; }
-                set { _progress.Maximum = value; }
-            }
-
-            private int FinishedFileCount
-            {
-                get { return _progress.Value; }
-            }
-
-            private void ResetFinishedFileCount()
-            {
-                _progress.Value = 0;
-            }
-
-            private void IncrementFinishedFileCount()
-            {
-                _progress.PerformStep();
-            }
-
-            #endregion TotalFileCount, FinishedFileCount
-
-            #region ProgressStyle
-
-            private enum ProgressStyle
-            {
-                Hidden = 0,
-                UnknownFileCount,
-                KnownFileCount,
-            }
-
-            private void ChangeProgressStyle(ProgressStyle style)
-            {
-                _progress.Visible = style != ProgressStyle.Hidden;
-                _progress.Style =
-                    style == ProgressStyle.KnownFileCount
-                        ? ProgressBarStyle.Continuous 
-                        : ProgressBarStyle.Marquee;
-            }
-
-            #endregion ProgressStyle
-
             private void InvokeUI(Action action)
             {
                 _form.BeginInvoke(action);
@@ -112,14 +67,12 @@ namespace TC.PhotoImporter
             private void ReportStartedUI()
             {
                 _statusLabel.Text = Properties.Resources.Starting;
-                ChangeProgressStyle(ProgressStyle.UnknownFileCount);
+                _progress.Start();
             }
 
             private void ReportFileCountUI(int fileCount)
             {
-                ResetFinishedFileCount();
-                TotalFileCount = fileCount;
-                ChangeProgressStyle(ProgressStyle.KnownFileCount);
+                _progress.InitializeTotalFileCount(fileCount);
             }
 
             private void ReportFileStartedUI(string fileName)
@@ -127,18 +80,18 @@ namespace TC.PhotoImporter
                 _statusLabel.Text = Format(
                     Properties.Resources.Importing,
                     fileName,
-                    FinishedFileCount + 1,
-                    TotalFileCount);
+                    _progress.CurrentFileOrdinal,
+                    _progress.TotalFileCount);
             }
 
             private void ReportFileFinishedUI()
             {
-                IncrementFinishedFileCount();
+                _progress.FinishFile();
             }
 
             private void ReportAllFinishedUI()
             {
-                _statusLabel.Text = GetAllFinishedStatusText(TotalFileCount);
+                _statusLabel.Text = GetAllFinishedStatusText(_progress.TotalFileCount);
             }
 
             private static string GetAllFinishedStatusText(int photoCount)
@@ -154,7 +107,7 @@ namespace TC.PhotoImporter
             private void ReportFailureUI(string errorMessage)
             {
                 _statusLabel.Text = errorMessage;
-                ChangeProgressStyle(ProgressStyle.Hidden);
+                _progress.Hide();
             }
         }
     }

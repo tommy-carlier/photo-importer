@@ -62,7 +62,7 @@
             layout.Controls.Add(websiteLink, 1, 4);
             layout.Dock = System.Windows.Forms.DockStyle.Fill;
             layout.Location = new System.Drawing.Point(0, 0);
-            layout.MinimumSize = new System.Drawing.Size(400, 0);
+            layout.MinimumSize = new System.Drawing.Size(500, 0);
             layout.Name = "layout";
             layout.Padding = new System.Windows.Forms.Padding(3);
             layout.RowCount = 5;
@@ -71,7 +71,7 @@
             layout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             layout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             layout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            layout.Size = new System.Drawing.Size(445, 167);
+            layout.Size = new System.Drawing.Size(500, 167);
             layout.TabIndex = 0;
             // 
             // _statusLabel
@@ -82,7 +82,7 @@
             this._statusLabel.Location = new System.Drawing.Point(9, 9);
             this._statusLabel.Margin = new System.Windows.Forms.Padding(6);
             this._statusLabel.Name = "_statusLabel";
-            this._statusLabel.Size = new System.Drawing.Size(427, 17);
+            this._statusLabel.Size = new System.Drawing.Size(482, 17);
             this._statusLabel.TabIndex = 0;
             this._statusLabel.Text = "(Status)";
             // 
@@ -94,7 +94,7 @@
             this._progress.Margin = new System.Windows.Forms.Padding(6);
             this._progress.MaximumSize = new System.Drawing.Size(0, 20);
             this._progress.Name = "_progress";
-            this._progress.Size = new System.Drawing.Size(427, 20);
+            this._progress.Size = new System.Drawing.Size(482, 20);
             this._progress.Step = 1;
             this._progress.TabIndex = 1;
             this._progress.Visible = false;
@@ -121,7 +121,7 @@
             this._sourceLink.Location = new System.Drawing.Point(45, 68);
             this._sourceLink.Margin = new System.Windows.Forms.Padding(4);
             this._sourceLink.Name = "_sourceLink";
-            this._sourceLink.Size = new System.Drawing.Size(393, 24);
+            this._sourceLink.Size = new System.Drawing.Size(448, 24);
             this._sourceLink.TabIndex = 2;
             this._sourceLink.TabStop = true;
             this._sourceLink.Text = "(source)";
@@ -150,7 +150,7 @@
             this._destinationLink.Location = new System.Drawing.Point(45, 100);
             this._destinationLink.Margin = new System.Windows.Forms.Padding(4);
             this._destinationLink.Name = "_destinationLink";
-            this._destinationLink.Size = new System.Drawing.Size(393, 24);
+            this._destinationLink.Size = new System.Drawing.Size(448, 24);
             this._destinationLink.TabIndex = 3;
             this._destinationLink.TabStop = true;
             this._destinationLink.Text = "(destination)";
@@ -169,7 +169,7 @@
             websiteLink.Location = new System.Drawing.Point(45, 132);
             websiteLink.Margin = new System.Windows.Forms.Padding(4);
             websiteLink.Name = "websiteLink";
-            websiteLink.Size = new System.Drawing.Size(393, 28);
+            websiteLink.Size = new System.Drawing.Size(448, 28);
             websiteLink.TabIndex = 4;
             websiteLink.TabStop = true;
             websiteLink.Text = "www.tcx.be";
@@ -188,7 +188,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(445, 167);
+            this.ClientSize = new System.Drawing.Size(492, 167);
             this.Controls.Add(layout);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileProgressTracker.cs" />
     <Compile Include="FormLocationTracker.cs" />
     <Compile Include="IImportProgressReceiver.cs" />
     <Compile Include="Importer.cs" />
