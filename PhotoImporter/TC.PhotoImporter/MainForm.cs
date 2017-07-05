@@ -12,7 +12,7 @@ namespace TC.PhotoImporter
     public partial class MainForm : Form
     {
         private readonly IImportProgressReceiver _progressReceiver;
-        private readonly FormLocationTracker _locationTracker;
+        private readonly FormAutoCenterer _autoCenterer;
 
         private Settings _settings;
         private Importer _importer;
@@ -22,7 +22,7 @@ namespace TC.PhotoImporter
             InitializeComponent();
             Text = Properties.Resources.ImportPhotos + GetVersionTitleSuffix();
             _progressReceiver = new ProgressReceiver(this);
-            _locationTracker = new FormLocationTracker(this);
+            _autoCenterer = new FormAutoCenterer(this);
         }
 
         private static string GetVersionTitleSuffix()
@@ -62,7 +62,7 @@ namespace TC.PhotoImporter
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            _locationTracker.Dispose();
+            _autoCenterer.Dispose();
         }
 
         private void StartImporting()

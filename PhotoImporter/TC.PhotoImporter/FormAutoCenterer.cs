@@ -4,12 +4,12 @@ using System.Windows.Forms;
 
 namespace TC.PhotoImporter
 {
-    internal sealed class FormLocationTracker : IDisposable
+    internal sealed class FormAutoCenterer : IDisposable
     {
         private readonly Form _form;
         private Size _previousSize;
 
-        internal FormLocationTracker(Form form)
+        internal FormAutoCenterer(Form form)
         {
             _form = form;
             _previousSize = form.Size;

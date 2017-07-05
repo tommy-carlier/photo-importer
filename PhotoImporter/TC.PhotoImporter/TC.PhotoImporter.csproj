@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileProgressTracker.cs" />
-    <Compile Include="FormLocationTracker.cs" />
+    <Compile Include="FormAutoCenterer.cs" />
     <Compile Include="IImportProgressReceiver.cs" />
     <Compile Include="Importer.cs" />
     <Compile Include="ImportException.cs" />
