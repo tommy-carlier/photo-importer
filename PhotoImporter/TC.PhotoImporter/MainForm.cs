@@ -11,7 +11,7 @@ namespace TC.PhotoImporter
 {
     public partial class MainForm : Form
     {
-        private readonly IImportProgressReceiver _progressReceiver;
+        private readonly IImportProgressReporter _progressReporter;
         private readonly FormAutoCenterer _autoCenterer;
 
         private Settings _settings;
@@ -21,7 +21,7 @@ namespace TC.PhotoImporter
         {
             InitializeComponent();
             Text = Properties.Resources.ImportPhotos + GetVersionTitleSuffix();
-            _progressReceiver = new ProgressReceiver(this);
+            _progressReporter = new ProgressReporter(this);
             _autoCenterer = new FormAutoCenterer(this);
         }
 
@@ -84,12 +84,12 @@ namespace TC.PhotoImporter
             if (errors.Count == 0)
             {
                 _timerToCheckFoldersExist.Stop();
-                _importer = new Importer(_settings, _progressReceiver);
+                _importer = new Importer(_settings, _progressReporter);
                 _importer.Start();
             }
             else
             {
-                _progressReceiver.ReportFailure(string.Join(Environment.NewLine, errors));
+                _progressReporter.ReportFailure(string.Join(Environment.NewLine, errors));
                 _timerToCheckFoldersExist.Start();
             }
         }

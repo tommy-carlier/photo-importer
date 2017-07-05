@@ -7,52 +7,52 @@ namespace TC.PhotoImporter
 {
     partial class MainForm
     {
-        private sealed class ProgressReceiver : IImportProgressReceiver
+        private sealed class ProgressReporter : IImportProgressReporter
         {
             private readonly MainForm _form;
             private readonly Label _statusLabel;
             private readonly FileProgressTracker _progress;
 
-            internal ProgressReceiver(MainForm form)
+            internal ProgressReporter(MainForm form)
             {
                 _form = form;
                 _statusLabel = form._statusLabel;
                 _progress = new FileProgressTracker(form._progress);
             }
 
-            #region IImportProgressReceiver implementation
+            #region IImportProgressReporter implementation
 
-            void IImportProgressReceiver.ReportStarted()
+            void IImportProgressReporter.ReportStarted()
             {
                 InvokeUI(ReportStartedUI);
             }
 
-            void IImportProgressReceiver.ReportFileCount(int fileCount)
+            void IImportProgressReporter.ReportFileCount(int fileCount)
             {
                 InvokeUI(ReportFileCountUI, fileCount);
             }
 
-            void IImportProgressReceiver.ReportFileStarted(string fileName)
+            void IImportProgressReporter.ReportFileStarted(string fileName)
             {
                 InvokeUI(ReportFileStartedUI, fileName);
             }
 
-            void IImportProgressReceiver.ReportFileFinished()
+            void IImportProgressReporter.ReportFileFinished()
             {
                 InvokeUI(ReportFileFinishedUI);
             }
 
-            void IImportProgressReceiver.ReportAllFinished()
+            void IImportProgressReporter.ReportAllFinished()
             {
                 InvokeUI(ReportAllFinishedUI);
             }
 
-            void IImportProgressReceiver.ReportFailure(string errorMessage)
+            void IImportProgressReporter.ReportFailure(string errorMessage)
             {
                 InvokeUI(ReportFailureUI, errorMessage);
             }
 
-            #endregion IImportProgressReceiver implementation
+            #endregion IImportProgressReporter implementation
 
             private void InvokeUI(Action action)
             {

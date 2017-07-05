@@ -1,6 +1,6 @@
 ﻿namespace TC.PhotoImporter
 {
-    interface IImportProgressReceiver
+    interface IImportProgressReporter
     {
         void ReportStarted();
         void ReportFileCount(int fileCount);

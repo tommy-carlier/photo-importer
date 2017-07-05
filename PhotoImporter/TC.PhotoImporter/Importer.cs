@@ -16,9 +16,9 @@ namespace TC.PhotoImporter
     sealed class Importer
     {
         readonly Settings _settings;
-        readonly IImportProgressReceiver _progress;
+        readonly IImportProgressReporter _progress;
 
-        public Importer(Settings settings, IImportProgressReceiver progress)
+        public Importer(Settings settings, IImportProgressReporter progress)
         {
             _settings = settings;
             _progress = progress;
