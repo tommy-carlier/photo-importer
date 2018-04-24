@@ -13,6 +13,8 @@ namespace TC.PhotoImporter
             private readonly Label _statusLabel;
             private readonly FileProgressTracker _progress;
 
+            private string _fileName;
+
             internal ProgressReporter(MainForm form)
             {
                 _form = form;
@@ -35,6 +37,11 @@ namespace TC.PhotoImporter
             void IImportProgressReporter.ReportFileStarted(string fileName)
             {
                 InvokeUI(ReportFileStartedUI, fileName);
+            }
+
+            void IImportProgressReporter.ReportFileCreationTime(DateTime creationTime)
+            {
+                InvokeUI(ReportFileCreationTimeUI, creationTime);
             }
 
             void IImportProgressReporter.ReportFileFinished()
@@ -77,9 +84,20 @@ namespace TC.PhotoImporter
 
             private void ReportFileStartedUI(string fileName)
             {
+                _fileName = fileName;
                 _statusLabel.Text = Format(
                     Properties.Resources.Importing,
                     fileName,
+                    _progress.CurrentFileOrdinal,
+                    _progress.TotalFileCount);
+            }
+
+            private void ReportFileCreationTimeUI(DateTime creationTime)
+            {
+                _statusLabel.Text = Format(
+                    Properties.Resources.ImportingWithCreationTime,
+                    _fileName,
+                    creationTime,
                     _progress.CurrentFileOrdinal,
                     _progress.TotalFileCount);
             }

@@ -20,6 +20,11 @@ namespace TC.PhotoImporter
             return string.Format(CultureInfo.InvariantCulture, format, arg1, arg2, arg3);
         }
 
+        internal static string Format(string format, object arg1, object arg2, object arg3, object arg4)
+        {
+            return string.Format(CultureInfo.InvariantCulture, format, arg1, arg2, arg3, arg4);
+        }
+
         internal static Exception CreateImportException(Exception innerException, string messageFormat, object arg)
         {
             return new ImportException(Format(messageFormat, arg), innerException);

@@ -237,4 +237,11 @@
 {0}</value>
     <comment>{0} = file path</comment>
   </data>
+  <data name="ImportingWithCreationTime" xml:space="preserve">
+    <value>Bezig met {0} van {1:yyyy-MM-dd} te importeren ({2}/{3})…</value>
+    <comment>{0} = file name
+{1} = creation time
+{2} = current file number
+{3} = total file count</comment>
+  </data>
 </root>

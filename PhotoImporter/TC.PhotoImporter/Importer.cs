@@ -70,6 +70,8 @@ namespace TC.PhotoImporter
             using (var sourceImage = ReadImage(sourceFile.FullName))
             {
                 DateTime creationTime = GetCreationTime(sourceImage, sourceFile);
+                _progress.ReportFileCreationTime(creationTime);
+
                 string destinationFolderPath = GetDestinationFolderPath(creationTime);
                 string destinationFilePath = Path.Combine(destinationFolderPath, sourceFile.Name);
 

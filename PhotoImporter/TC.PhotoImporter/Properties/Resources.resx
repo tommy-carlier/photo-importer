@@ -244,4 +244,11 @@
 {0}</value>
     <comment>{0} = file path</comment>
   </data>
+  <data name="ImportingWithCreationTime" xml:space="preserve">
+    <value>Importing {0} from {1:yyyy-MM-dd} ({2}/{3})…</value>
+    <comment>{0} = file name
+{1} = creation time
+{2} = current file number
+{3} = total file count</comment>
+  </data>
 </root>

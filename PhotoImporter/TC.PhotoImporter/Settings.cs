@@ -82,8 +82,7 @@ namespace TC.PhotoImporter
 
         private static int ParseInt32(string value)
         {
-            int result;
-            if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result))
+            if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int result))
             {
                 return result;
             }
@@ -92,8 +91,7 @@ namespace TC.PhotoImporter
 
         private static bool ParseBoolean(string value)
         {
-            bool result;
-            return bool.TryParse(value, out result) && result;
+            return bool.TryParse(value, out bool result) && result;
         }
 
         public string Validate()
