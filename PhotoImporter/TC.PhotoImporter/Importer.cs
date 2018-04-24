@@ -55,7 +55,7 @@ namespace TC.PhotoImporter
             try
             {
                 var sourceFolder = new DirectoryInfo(_settings.SourceFolderPath);
-                return sourceFolder.GetFiles("*.jpg", SearchOption.TopDirectoryOnly);
+                return sourceFolder.GetFiles("*.jpg", SearchOption.AllDirectories);
             }
             catch(SecurityException ex)
             {
@@ -100,7 +100,7 @@ namespace TC.PhotoImporter
                 return creationTime;
             }
 
-            return file.CreationTime;
+            return Min(file.CreationTime, file.LastWriteTime);
         }
 
         private static string GetPropertyValue(Image image, int propID)
@@ -115,6 +115,11 @@ namespace TC.PhotoImporter
             }
             catch (ArgumentException) { /* The image format does not support property items */ }
             return null;
+        }
+
+        private static DateTime Min(DateTime dt1, DateTime dt2)
+        {
+            return dt1 < dt2 ? dt1 : dt2;
         }
 
         private string GetDestinationFolderPath(DateTime creationTime)
