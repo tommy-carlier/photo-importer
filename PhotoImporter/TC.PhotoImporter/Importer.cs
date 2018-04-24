@@ -94,17 +94,27 @@ namespace TC.PhotoImporter
 
         private static DateTime GetCreationTime(Image image, FileInfo file)
         {
-            var propertyItem = image.GetPropertyItem(0x9003 /* DateTimeOriginal */);
-            if(propertyItem != null)
+            string propertyValue = GetPropertyValue(image, 0x9003 /* DateTimeOriginal */);
+            if(propertyValue != null && DateTime.TryParseExact(propertyValue, "yyyy:MM:dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out DateTime creationTime))
             {
-                string propertyValue = System.Text.Encoding.ASCII.GetString(propertyItem.Value, 0, propertyItem.Len - 1);
-                if(DateTime.TryParseExact(propertyValue, "yyyy:MM:dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out DateTime creationTime))
-                {
-                    return creationTime;
-                }
+                return creationTime;
             }
 
             return file.CreationTime;
+        }
+
+        private static string GetPropertyValue(Image image, int propID)
+        {
+            try
+            {
+                var propertyItem = image.GetPropertyItem(0x9003 /* DateTimeOriginal */);
+                if (propertyItem != null)
+                {
+                    return System.Text.Encoding.ASCII.GetString(propertyItem.Value, 0, propertyItem.Len - 1);
+                }
+            }
+            catch (ArgumentException) { /* The image format does not support property items */ }
+            return null;
         }
 
         private string GetDestinationFolderPath(DateTime creationTime)
