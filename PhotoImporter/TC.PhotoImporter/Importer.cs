@@ -67,20 +67,21 @@ namespace TC.PhotoImporter
         {
             _progress.ReportFileStarted(sourceFile.Name);
 
-            string destinationFolderPath = GetDestinationFolderPath(sourceFile);
-            string destinationFilePath = Path.Combine(destinationFolderPath, sourceFile.Name);
-
             using (var sourceImage = ReadImage(sourceFile.FullName))
             {
+                DateTime creationTime = GetCreationTime(sourceImage, sourceFile);
+                string destinationFolderPath = GetDestinationFolderPath(creationTime);
+                string destinationFilePath = Path.Combine(destinationFolderPath, sourceFile.Name);
+
                 Size destinationSize = CalculateDestinationSize(sourceImage.Size);
                 using (var destinationImage = CreateDestinationImage(sourceImage, destinationSize))
                 {
                     CopyExifData(sourceImage, destinationImage);
                     SaveJpeg(destinationImage, destinationFilePath);
                 }
-            }
 
-            CopyCreationTime(sourceFile, destinationFilePath);
+                SetCreationTime(destinationFilePath, creationTime);
+            }
             if (_settings.DeleteSourceFiles)
             {
                 Delete(sourceFile);
@@ -89,9 +90,23 @@ namespace TC.PhotoImporter
             _progress.ReportFileFinished();
         }
 
-        private string GetDestinationFolderPath(FileInfo sourceFile)
+        private static DateTime GetCreationTime(Image image, FileInfo file)
         {
-            DateTime creationTime = sourceFile.CreationTime;
+            var propertyItem = image.GetPropertyItem(0x9003 /* DateTimeOriginal */);
+            if(propertyItem != null)
+            {
+                string propertyValue = System.Text.Encoding.ASCII.GetString(propertyItem.Value, 0, propertyItem.Len - 1);
+                if(DateTime.TryParseExact(propertyValue, "yyyy:MM:dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out DateTime creationTime))
+                {
+                    return creationTime;
+                }
+            }
+
+            return file.CreationTime;
+        }
+
+        private string GetDestinationFolderPath(DateTime creationTime)
+        {
             string path = Path.Combine(
                 _settings.DestinationFolderPath,
                 creationTime.ToString("yyyy", CultureInfo.InvariantCulture),
@@ -226,11 +241,11 @@ namespace TC.PhotoImporter
             }
         }
 
-        private static void CopyCreationTime(FileInfo sourceFile, string destinationFilePath)
+        private static void SetCreationTime(string destinationFilePath, DateTime creationTime)
         {
             try
             {
-                File.SetCreationTimeUtc(destinationFilePath, sourceFile.CreationTimeUtc);
+                File.SetCreationTimeUtc(destinationFilePath, creationTime.ToUniversalTime());
             }
             catch(UnauthorizedAccessException ex)
             {
