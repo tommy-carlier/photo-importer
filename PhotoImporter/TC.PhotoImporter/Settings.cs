@@ -18,7 +18,8 @@ namespace TC.PhotoImporter
             string destinationFolderPath,
             int maxWidthOrHeight,
             long quality,
-            bool deleteSourceFiles)
+            bool deleteSourceFiles,
+            bool groupByYear)
         {
             _readError = readError;
             SourceFolderPath = sourceFolderPath;
@@ -26,6 +27,7 @@ namespace TC.PhotoImporter
             MaxWidthOrHeight = maxWidthOrHeight;
             Quality = quality;
             DeleteSourceFiles = deleteSourceFiles;
+            GroupByYear = groupByYear;
         }
 
         public string SourceFolderPath { get; }
@@ -33,13 +35,14 @@ namespace TC.PhotoImporter
         public int MaxWidthOrHeight { get; }
         public long Quality { get; }
         public bool DeleteSourceFiles { get; }
+        public bool GroupByYear { get; }
 
         public static Settings ReadFromFile(string filePath)
         {
             string readError = "", sourceFolderPath = "", destinationFolderPath = "";
             int maxWidthOrHeight = 0;
             long quality = 80;
-            bool deleteSourceFiles = false;
+            bool deleteSourceFiles = false, groupByYear = true;
 
             try
             {
@@ -66,6 +69,10 @@ namespace TC.PhotoImporter
                         case nameof(DeleteSourceFiles):
                             deleteSourceFiles = ParseBoolean(setting.Value);
                             break;
+
+                        case nameof(GroupByYear):
+                            groupByYear = ParseBoolean(setting.Value);
+                            break;
                     }
                 }
             }
@@ -74,7 +81,7 @@ namespace TC.PhotoImporter
                 readError = ex.Message;
             }
 
-            return new Settings(readError, sourceFolderPath, destinationFolderPath, maxWidthOrHeight, quality, deleteSourceFiles);
+            return new Settings(readError, sourceFolderPath, destinationFolderPath, maxWidthOrHeight, quality, deleteSourceFiles, groupByYear);
         }
 
         private static int ParseInt32(string value)

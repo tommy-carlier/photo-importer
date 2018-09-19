@@ -34,5 +34,15 @@ namespace TC.PhotoImporter
         {
             return new ImportException(Format(messageFormat, arg1, arg2), innerException);
         }
+
+        internal static string FormatYear(this DateTime dateTime)
+        {
+            return dateTime.ToString("yyyy", CultureInfo.InvariantCulture);
+        }
+
+        internal static string FormatDate(this DateTime dateTime)
+        {
+            return dateTime.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+        }
     }
 }

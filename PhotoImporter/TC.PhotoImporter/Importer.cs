@@ -124,10 +124,9 @@ namespace TC.PhotoImporter
 
         private string GetDestinationFolderPath(DateTime creationTime)
         {
-            string path = Path.Combine(
-                _settings.DestinationFolderPath,
-                creationTime.ToString("yyyy", CultureInfo.InvariantCulture),
-                creationTime.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
+            string path = _settings.GroupByYear
+                ? Path.Combine(_settings.DestinationFolderPath, creationTime.FormatYear(), creationTime.FormatDate())
+                : Path.Combine(_settings.DestinationFolderPath, creationTime.FormatDate());
 
             if (!Directory.Exists(path))
             {
