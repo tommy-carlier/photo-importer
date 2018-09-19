@@ -10,10 +10,7 @@ namespace TC.PhotoImporter
 {
     sealed class Settings
     {
-        private readonly string _readError, _sourceFolderPath, _destinationFolderPath;
-        private readonly int _maxWidthOrHeight;
-        private readonly long _quality;
-        private readonly bool _deleteSourceFiles;
+        private readonly string _readError;
 
         private Settings(
             string readError,
@@ -24,18 +21,18 @@ namespace TC.PhotoImporter
             bool deleteSourceFiles)
         {
             _readError = readError;
-            _sourceFolderPath = sourceFolderPath;
-            _destinationFolderPath = destinationFolderPath;
-            _maxWidthOrHeight = maxWidthOrHeight;
-            _quality = quality;
-            _deleteSourceFiles = deleteSourceFiles;
+            SourceFolderPath = sourceFolderPath;
+            DestinationFolderPath = destinationFolderPath;
+            MaxWidthOrHeight = maxWidthOrHeight;
+            Quality = quality;
+            DeleteSourceFiles = deleteSourceFiles;
         }
 
-        public string SourceFolderPath { get { return _sourceFolderPath; } }
-        public string DestinationFolderPath { get { return _destinationFolderPath; } }
-        public int MaxWidthOrHeight { get { return _maxWidthOrHeight; } }
-        public long Quality { get { return _quality; } }
-        public bool DeleteSourceFiles { get { return _deleteSourceFiles; } }
+        public string SourceFolderPath { get; }
+        public string DestinationFolderPath { get; }
+        public int MaxWidthOrHeight { get; }
+        public long Quality { get; }
+        public bool DeleteSourceFiles { get; }
 
         public static Settings ReadFromFile(string filePath)
         {
@@ -50,23 +47,23 @@ namespace TC.PhotoImporter
                 {
                     switch (setting.Key)
                     {
-                        case "SourceFolderPath":
+                        case nameof(SourceFolderPath):
                             sourceFolderPath = setting.Value;
                             break;
 
-                        case "DestinationFolderPath":
+                        case nameof(DestinationFolderPath):
                             destinationFolderPath = setting.Value;
                             break;
 
-                        case "MaxWidthOrHeight":
+                        case nameof(MaxWidthOrHeight):
                             maxWidthOrHeight = ParseInt32(setting.Value);
                             break;
 
-                        case "Quality":
+                        case nameof(Quality):
                             quality = ParseInt32(setting.Value);
                             break;
 
-                        case "DeleteSourceFiles":
+                        case nameof(DeleteSourceFiles):
                             deleteSourceFiles = ParseBoolean(setting.Value);
                             break;
                     }
@@ -112,8 +109,8 @@ namespace TC.PhotoImporter
             }
             else
             {
-                yield return GetFolderPathError(_sourceFolderPath, "SourceFolderPath");
-                yield return GetFolderPathError(_destinationFolderPath, "DestinationFolderPath");
+                yield return GetFolderPathError(SourceFolderPath, nameof(SourceFolderPath));
+                yield return GetFolderPathError(DestinationFolderPath, nameof(DestinationFolderPath));
             }
         }
 
