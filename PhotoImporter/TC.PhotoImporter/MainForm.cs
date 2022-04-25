@@ -116,7 +116,7 @@ namespace TC.PhotoImporter
 
         private void OnWebsiteLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            StartProcess("http://www.tcx.be/");
+            StartProcess("https://www.tcx.be/");
         }
 
         private void OnTimerToCheckFoldersExistTick(object sender, EventArgs e)

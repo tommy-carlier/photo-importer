@@ -107,7 +107,7 @@ namespace TC.PhotoImporter
         {
             try
             {
-                var propertyItem = image.GetPropertyItem(0x9003 /* DateTimeOriginal */);
+                var propertyItem = image.GetPropertyItem(propID);
                 if (propertyItem != null)
                 {
                     return System.Text.Encoding.ASCII.GetString(propertyItem.Value, 0, propertyItem.Len - 1);
