@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -35,7 +36,7 @@ namespace TC.PhotoImporter
             try
             {
                 var sourceFiles = GetSourceFiles();
-                _progress.ReportFileCount(sourceFiles.Length);
+                _progress.ReportFileCount(sourceFiles.Count);
 
                 foreach (var sourceFile in sourceFiles)
                 {
@@ -50,12 +51,15 @@ namespace TC.PhotoImporter
             }
         }
 
-        private FileInfo[] GetSourceFiles()
+        private IReadOnlyList<FileInfo> GetSourceFiles()
         {
             try
             {
                 var sourceFolder = new DirectoryInfo(_settings.SourceFolderPath);
-                return sourceFolder.GetFiles("*.jpg", SearchOption.AllDirectories);
+                return Enumerable.Concat(
+                    sourceFolder.EnumerateFiles("*.jpg", SearchOption.AllDirectories),
+                    sourceFolder.EnumerateFiles("*.jpeg", SearchOption.AllDirectories)
+                    ).ToList();
             }
             catch(SecurityException ex)
             {
