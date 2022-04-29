@@ -76,8 +76,9 @@ namespace TC.PhotoImporter
                 DateTime creationTime = GetCreationTime(sourceImage, sourceFile);
                 _progress.ReportFileCreationTime(creationTime);
 
-                string destinationFolderPath = GetDestinationFolderPath(creationTime);
-                string destinationFilePath = Path.Combine(destinationFolderPath, sourceFile.Name);
+                string destinationFilePath = Path.Combine(
+                    GetDestinationFolderPath(creationTime),
+                    GetDestinationFileName(sourceFile.Name));
 
                 Size destinationSize = CalculateDestinationSize(sourceImage.Size);
                 using (var destinationImage = CreateDestinationImage(sourceImage, destinationSize))
@@ -153,6 +154,18 @@ namespace TC.PhotoImporter
             }
 
             return path;
+        }
+
+        private string GetDestinationFileName(String fileName)
+        {
+            if (String.IsNullOrWhiteSpace(_settings.NormalizedJpegFileExtension))
+            {
+                return fileName;
+            }
+            else
+            {
+                return Path.GetFileNameWithoutExtension(fileName) + "." + _settings.NormalizedJpegFileExtension;
+            }
         }
 
         private static Image ReadImage(string filePath)

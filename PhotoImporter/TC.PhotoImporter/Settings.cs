@@ -19,7 +19,8 @@ namespace TC.PhotoImporter
             int maxWidthOrHeight,
             long quality,
             bool deleteSourceFiles,
-            bool groupByYear)
+            bool groupByYear,
+            string normalizedJpegFileExtension)
         {
             _readError = readError;
             SourceFolderPath = sourceFolderPath;
@@ -28,6 +29,7 @@ namespace TC.PhotoImporter
             Quality = quality;
             DeleteSourceFiles = deleteSourceFiles;
             GroupByYear = groupByYear;
+            NormalizedJpegFileExtension = normalizedJpegFileExtension;
         }
 
         public string SourceFolderPath { get; }
@@ -36,10 +38,11 @@ namespace TC.PhotoImporter
         public long Quality { get; }
         public bool DeleteSourceFiles { get; }
         public bool GroupByYear { get; }
+        public string NormalizedJpegFileExtension { get; }
 
         public static Settings ReadFromFile(string filePath)
         {
-            string readError = "", sourceFolderPath = "", destinationFolderPath = "";
+            string readError = "", sourceFolderPath = "", destinationFolderPath = "", normalizedJpegFileExtension = "";
             int maxWidthOrHeight = 0;
             long quality = 80;
             bool deleteSourceFiles = false, groupByYear = true;
@@ -50,29 +53,13 @@ namespace TC.PhotoImporter
                 {
                     switch (setting.Key)
                     {
-                        case nameof(SourceFolderPath):
-                            sourceFolderPath = setting.Value;
-                            break;
-
-                        case nameof(DestinationFolderPath):
-                            destinationFolderPath = setting.Value;
-                            break;
-
-                        case nameof(MaxWidthOrHeight):
-                            maxWidthOrHeight = ParseInt32(setting.Value);
-                            break;
-
-                        case nameof(Quality):
-                            quality = ParseInt32(setting.Value);
-                            break;
-
-                        case nameof(DeleteSourceFiles):
-                            deleteSourceFiles = ParseBoolean(setting.Value);
-                            break;
-
-                        case nameof(GroupByYear):
-                            groupByYear = ParseBoolean(setting.Value);
-                            break;
+                        case nameof(SourceFolderPath): sourceFolderPath = setting.Value; break;
+                        case nameof(DestinationFolderPath): destinationFolderPath = setting.Value; break;
+                        case nameof(MaxWidthOrHeight): maxWidthOrHeight = ParseInt32(setting.Value); break;
+                        case nameof(Quality): quality = ParseInt32(setting.Value); break;
+                        case nameof(DeleteSourceFiles): deleteSourceFiles = ParseBoolean(setting.Value); break;
+                        case nameof(GroupByYear): groupByYear = ParseBoolean(setting.Value); break;
+                        case nameof(NormalizedJpegFileExtension): normalizedJpegFileExtension = setting.Value;break;
                     }
                 }
             }
@@ -81,16 +68,14 @@ namespace TC.PhotoImporter
                 readError = ex.Message;
             }
 
-            return new Settings(readError, sourceFolderPath, destinationFolderPath, maxWidthOrHeight, quality, deleteSourceFiles, groupByYear);
+            return new Settings(
+                readError, sourceFolderPath, destinationFolderPath, maxWidthOrHeight,
+                quality, deleteSourceFiles, groupByYear, normalizedJpegFileExtension);
         }
 
         private static int ParseInt32(string value)
         {
-            if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int result))
-            {
-                return result;
-            }
-            return 0;
+            return int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int result) ? result : 0;
         }
 
         private static bool ParseBoolean(string value)
