@@ -158,14 +158,12 @@ namespace TC.PhotoImporter
 
         private string GetDestinationFileName(String fileName)
         {
-            if (String.IsNullOrWhiteSpace(_settings.NormalizedJpegFileExtension))
+            fileName = _settings.DestinationFileNamePrefix + fileName;
+            if (_settings.NormalizedJpegFileExtension.Length > 0)
             {
-                return fileName;
+                fileName = Path.GetFileNameWithoutExtension(fileName) + _settings.NormalizedJpegFileExtension;
             }
-            else
-            {
-                return Path.GetFileNameWithoutExtension(fileName) + "." + _settings.NormalizedJpegFileExtension;
-            }
+            return fileName;
         }
 
         private static Image ReadImage(string filePath)

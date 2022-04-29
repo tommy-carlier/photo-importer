@@ -20,7 +20,8 @@ namespace TC.PhotoImporter
             long quality,
             bool deleteSourceFiles,
             bool groupByYear,
-            string normalizedJpegFileExtension)
+            string normalizedJpegFileExtension,
+            string destinationFileNamePrefix)
         {
             _readError = readError;
             SourceFolderPath = sourceFolderPath;
@@ -30,6 +31,7 @@ namespace TC.PhotoImporter
             DeleteSourceFiles = deleteSourceFiles;
             GroupByYear = groupByYear;
             NormalizedJpegFileExtension = normalizedJpegFileExtension;
+            DestinationFileNamePrefix = destinationFileNamePrefix;
         }
 
         public string SourceFolderPath { get; }
@@ -39,10 +41,12 @@ namespace TC.PhotoImporter
         public bool DeleteSourceFiles { get; }
         public bool GroupByYear { get; }
         public string NormalizedJpegFileExtension { get; }
+        public string DestinationFileNamePrefix { get; }
 
         public static Settings ReadFromFile(string filePath)
         {
-            string readError = "", sourceFolderPath = "", destinationFolderPath = "", normalizedJpegFileExtension = "";
+            string readError = "", sourceFolderPath = "", destinationFolderPath = "",
+                normalizedJpegFileExtension = "", destinationFileNamePrefix = "";
             int maxWidthOrHeight = 0;
             long quality = 80;
             bool deleteSourceFiles = false, groupByYear = true;
@@ -59,7 +63,8 @@ namespace TC.PhotoImporter
                         case nameof(Quality): quality = ParseInt32(setting.Value); break;
                         case nameof(DeleteSourceFiles): deleteSourceFiles = ParseBoolean(setting.Value); break;
                         case nameof(GroupByYear): groupByYear = ParseBoolean(setting.Value); break;
-                        case nameof(NormalizedJpegFileExtension): normalizedJpegFileExtension = setting.Value;break;
+                        case nameof(NormalizedJpegFileExtension): normalizedJpegFileExtension = setting.Value; break;
+                        case nameof(DestinationFileNamePrefix): destinationFileNamePrefix = setting.Value; break;
                     }
                 }
             }
@@ -68,9 +73,15 @@ namespace TC.PhotoImporter
                 readError = ex.Message;
             }
 
+            // make sure that normalizedJpegFileExtension starts with a period (if it's not empty)
+            if (normalizedJpegFileExtension.Length > 0 && normalizedJpegFileExtension[0] != '.')
+            {
+                normalizedJpegFileExtension = "." + normalizedJpegFileExtension;
+            }
+
             return new Settings(
-                readError, sourceFolderPath, destinationFolderPath, maxWidthOrHeight,
-                quality, deleteSourceFiles, groupByYear, normalizedJpegFileExtension);
+                readError, sourceFolderPath, destinationFolderPath, maxWidthOrHeight, quality,
+                deleteSourceFiles, groupByYear, normalizedJpegFileExtension, destinationFileNamePrefix);
         }
 
         private static int ParseInt32(string value)
